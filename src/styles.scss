@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 // css reset
+@import './theme';
+
 * {
   box-sizing: border-box;
   min-width: 0;
@@ -10,6 +12,8 @@ body {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  background-color: $dark;
+  color: $light;
 }
 
 h1,
