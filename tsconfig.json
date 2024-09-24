@@ -28,12 +28,15 @@
       "@components/*": [
         "app/components/*"
       ],
+      "@modules/*": [
+        "app/modules/*"
+      ],
       "@pages/*": [
-        "app/pages/*"
+        "app/components/pages/*"
       ],
       "@layouts/*": [
         "app/components/layouts/*"
-      ]
+      ],
     }
   },
   "angularCompilerOptions": {
