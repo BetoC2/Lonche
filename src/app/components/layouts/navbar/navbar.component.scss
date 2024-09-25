@@ -1,0 +1,19 @@
+@import '../../../../theme';
+
+nav {
+  min-height: 70dvh;
+  margin: 0 30px;
+  width: 20%;
+  background-color: $sec;
+  border-radius: 20px;
+  padding: 20px 15px;
+}
+
+
+hr {
+  height: 2px;
+  background-color: $sec-gray;
+  border: none;
+  width: 97%;
+  margin: 10px auto;
+}
