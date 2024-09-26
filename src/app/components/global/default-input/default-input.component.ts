@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-default-input',
+  selector: 'default-input',
   standalone: true,
   imports: [],
   templateUrl: './default-input.component.html',
