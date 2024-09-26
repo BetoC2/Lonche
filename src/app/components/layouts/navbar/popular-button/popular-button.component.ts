@@ -9,7 +9,6 @@ import { faSolidFire } from '@ng-icons/font-awesome/solid'
   templateUrl: './popular-button.component.html',
   styleUrl: './popular-button.component.scss',
   viewProviders: [provideIcons({ faSolidFire })]
-
 })
 export class PopularButtonComponent {
 

@@ -1,27 +1,12 @@
-@import '../../../../../theme';
+@use '../../../../styles/theme';
+@use '../../../../styles/navbar_buttons' as btn;
 
 button {
-  background-color: inherit;
-  color: inherit;
-  border: none;
-  width: 100%;
-  height: 42px;
-  font-size: large;
-  border-radius: 15px;
-
-  display: flex;
-  align-items: center;
-  padding: 0;
-
-  &:hover {
-    background-color: $active-page;
-  }
+  @include btn.button-common;
 
   ng-icon {
-    margin: 0 0 1px 10px;
+    margin: 0 0 3px 10px;
   }
 
-  p {
-    margin: 0 10px;
-  }
+  @include btn.button-hover;
 }

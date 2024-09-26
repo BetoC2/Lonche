@@ -1,0 +1,82 @@
+@use '../../../../styles/theme' as t;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.categories-container {
+  margin-top: 10px;
+
+  .categories-header {
+    @include flex-center; // Mixin para centralizar flex
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 15px;
+
+    &:hover {
+      background-color: t.$active-page;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: large;
+      font-weight: 500;
+    }
+
+    .chevron {
+      font-size: 20px;
+      transition: transform 0.3s ease;
+
+      &.up {
+        transform: rotate(180deg);
+      }
+
+      ng-icon {
+        padding-top: 3px;
+      }
+    }
+  }
+
+  .search-container,
+  .category-buttons {
+    padding: 0 10px;
+  }
+
+  .search-container {
+    margin: 10px 0;
+
+    .search-input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 15px;
+      border: none;
+      background-color: t.$active-page;
+      color: white;
+      font-size: large;
+    }
+  }
+
+  .category-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: 500;
+
+    .category-button {
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  }
+
+  .see-more {
+    margin-top: 10px;
+    text-align: center;
+    cursor: pointer;
+  }
+}
