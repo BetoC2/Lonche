@@ -3,11 +3,12 @@ import { ForYouButtonComponent } from './for-you-button/for-you-button.component
 import { PopularButtonComponent } from './popular-button/popular-button.component';
 import { CategoriesMenuComponent } from './categories-menu/categories-menu.component';
 import { SavedPostsComponent } from './saved-posts/saved-posts.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [ForYouButtonComponent, PopularButtonComponent, CategoriesMenuComponent, SavedPostsComponent],
+  imports: [ForYouButtonComponent, PopularButtonComponent, CategoriesMenuComponent, SavedPostsComponent, ProfileComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })

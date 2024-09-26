@@ -1,18 +1,27 @@
-@import '../../../../theme';
+@use '../../../../theme' as t;
 
 nav {
-  min-height: 70dvh;
+  height: 85%;
   margin: 0 30px;
   width: 20%;
-  background-color: $sec;
-  border-radius: 20px;
-  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 10dvh;
 }
 
+.navigation-content {
+  padding: 20px 15px;
+  flex-grow: 1; // Permite que el contenido crezca ocupando el espacio restante
+  background-color: t.$sec;
+  border-radius: 20px;
+  height: 70%;
+}
 
 hr {
   height: 2px;
-  background-color: $sec-gray;
+  background-color: t.$sec-gray;
   border: none;
   width: 97%;
   margin: 10px auto 0;
