@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-submit-button',
+  selector: 'submit-button',
   standalone: true,
   imports: [],
   templateUrl: './submit-button.component.html',
