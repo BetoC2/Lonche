@@ -1,0 +1,58 @@
+@import '../../../../theme';
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    height: 5vh;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo img {
+    width: 90px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  .navbar-elements {
+    display: flex;
+    align-items: center;
+    width: 40%;
+  }
+  
+  .navbar-elements input[type="text"] {
+    width: 90%;
+    padding: 10px 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: $sec-gray;
+    color: $light;
+    margin-right: 15px;
+  }
+  
+  .notification-bell {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .bell-icon {
+    font-size: 24px;
+    color: $light;
+  }
+  
+  .notification-count {
+    position: absolute;
+    top: -10px;
+    right: -12px;
+    background-color: red;
+    color: $light;
+    border-radius: 50%;
+    padding: 1px 5px;
+    font-size: 12px;
+    border: 1px solid #1d1d1d;
+  }
