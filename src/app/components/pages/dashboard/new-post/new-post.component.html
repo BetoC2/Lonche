@@ -1,0 +1,19 @@
+<form (ngSubmit)="publishPost()" #postForm="ngForm" class="post-box-container">
+  <p>
+    Cuéntale algo a <span class="location">Guadalajara, México</span>...
+  </p>
+
+  <!-- Input de texto con ngModel -->
+  <textarea name="postContent" [(ngModel)]="postContent" placeholder="¿Qué pasa por tu mente?" required>
+  </textarea>
+
+  <div class="post-actions">
+    <div class="left-actions">
+      <button type="button" class="image-button">
+        <ng-icon name="faImages"></ng-icon>
+      </button>
+      <button type="button" class="category-button">+ Agrega categoría</button>
+    </div>
+    <button type="submit" class="publish-button" [disabled]="!postForm.valid">Publicar</button>
+  </div>
+</form>

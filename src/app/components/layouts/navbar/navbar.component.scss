@@ -1,19 +1,20 @@
 @use '../../../../theme' as t;
 
 nav {
-  height: 85%;
-  margin: 0 30px;
-  width: 20%;
+  height: 98%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 20px;
   gap: 10dvh;
+  top: 0;
+  position: sticky;
 }
 
 .navigation-content {
   padding: 20px 15px;
-  flex-grow: 1; // Permite que el contenido crezca ocupando el espacio restante
+  flex-grow: 1;
   background-color: t.$sec;
   border-radius: 20px;
   height: 70%;
@@ -25,4 +26,8 @@ hr {
   border: none;
   width: 97%;
   margin: 10px auto 0;
+}
+
+.profile-section {
+  padding-right: 15px;
 }

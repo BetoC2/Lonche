@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  height: 93dvh;
+  padding: 0 20px;
+
+  app-navbar {
+    width: 18%;
+  }
+
+  app-lateral-bar {
+    width: 22%;
+  }
+
+  .content {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

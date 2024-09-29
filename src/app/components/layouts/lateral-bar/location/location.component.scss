@@ -1,0 +1,60 @@
+@use '../../../../styles/theme' as t;
+
+.search-container {
+  background-color: t.$sec;
+  padding: 20px 20px;
+  border-radius: 15px;
+
+  .location-info {
+    margin-bottom: 10px;
+
+    p {
+      margin: 0 0 10px;
+    }
+
+    strong {
+      font-size: 18px;
+    }
+  }
+
+  .search-bar {
+    background-color: t.$sec-gray;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 95%;
+
+    ng-icon {
+      color: t.$dark-gray;
+      margin-right: 10px;
+    }
+
+    input {
+      background: transparent;
+      border: none;
+      outline: none;
+      flex: 1;
+      color: white;
+
+      &::placeholder {
+        color: t.$dark-gray;
+      }
+    }
+  }
+
+  .search-button {
+    background-color: t.$main;
+    color: white;
+    border: none;
+    padding: 5px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+
+    &:hover {
+      background-color: darken(t.$main, 10%);
+    }
+  }
+}
