@@ -57,7 +57,7 @@
   }
 
   hr {
-      width: 83%;
+      width: 80%;
       margin: 5% auto;
       border: none;
       border-radius: 2px;
@@ -89,6 +89,11 @@
           font-size: 0.9em;
           background-color: $sec-gray;
           color: $light;
+
+          &:focus {
+            border: none; 
+            outline: none;
+          }
       }
 
       a {
