@@ -90,6 +90,11 @@
           font-size: 0.9em;
           background-color: $sec-gray;
           color: $light;
+
+          &:focus {
+            border: none; 
+            outline: none;
+          }
       }
 
       a {
