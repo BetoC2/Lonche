@@ -1,0 +1,39 @@
+<div class="post-container">
+  <!-- Título del post -->
+  <div class="title">
+    <h1>{{ title }}</h1>
+    <ng-icon name="cssMoreAlt"></ng-icon>
+  </div>
+
+
+  <div class="user-info">
+    <span class="username">{{ username }} </span>
+    <span>&#124;</span>
+    <span class="time">{{ timePosted }}</span>
+  </div>
+
+  <div class="category">
+    <span>{{ category }}</span>
+  </div>
+
+  <p class="post-text">{{ text }}</p>
+
+  <img [src]="imageUrl" alt="Post image" class="post-image" />
+
+  <div class="post-footer">
+    <div class="icon-group">
+      <ng-icon name="faSolidHeart"></ng-icon>
+      <span>{{ likes }}k</span>
+    </div>
+
+    <div class="icon-group">
+      <ng-icon name="faSolidHeartCrack"></ng-icon>
+      <span>{{ dislikes }}k</span>
+    </div>
+
+    <div class="icon-group">
+      <ng-icon name="faSolidComment"></ng-icon>
+      <span>{{ comments }}</span>
+    </div>
+  </div>
+</div>

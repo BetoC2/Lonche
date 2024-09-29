@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NewPostComponent } from '../new-post/new-post.component';
+import { PostComponent } from '../post/post.component';
 
 @Component({
   selector: 'app-for-you',
   standalone: true,
-  imports: [NewPostComponent],
+  imports: [PostComponent],
   templateUrl: './for-you.component.html',
   styleUrl: './for-you.component.scss'
 })
