@@ -71,6 +71,10 @@
       color: white;
       font-size: 16px;
       cursor: pointer;
+
+      &:hover {
+        filter: brightness(90%);
+      }
     }
   }
 
@@ -78,5 +82,6 @@
     margin-top: 10px;
     text-align: center;
     cursor: pointer;
+    color: t.$dark-gray;
   }
 }
