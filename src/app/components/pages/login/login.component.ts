@@ -14,5 +14,11 @@ import { faBrandGoogle } from '@ng-icons/font-awesome/brands';
   viewProviders: [provideIcons({ faBrandGoogle })]
 })
 export class LoginComponent {
+  email: string = ''; 
+  isEmailExists: boolean = true; 
 
+  checkEmail() {
+    const existingEmails = ['test@example.com', 'user@domain.com']; 
+    this.isEmailExists = existingEmails.includes(this.email);
+  }
 }
