@@ -6,8 +6,6 @@ import { PostComponent } from '../post/post.component';
   standalone: true,
   imports: [PostComponent],
   templateUrl: './for-you.component.html',
-  styleUrl: './for-you.component.scss'
+  styleUrl: './for-you.component.scss',
 })
-export class ForYouComponent {
-
-}
+export class ForYouComponent {}

@@ -8,8 +8,6 @@ import { faSolidBell } from '@ng-icons/font-awesome/solid';
   imports: [NgIconComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
-  viewProviders: [provideIcons({ faSolidBell })]
+  viewProviders: [provideIcons({ faSolidBell })],
 })
-export class HeaderComponent {
-
-}
+export class HeaderComponent {}

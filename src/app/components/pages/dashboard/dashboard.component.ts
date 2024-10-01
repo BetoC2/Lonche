@@ -5,7 +5,6 @@ import { LateralBarComponent } from '@layouts/lateral-bar/lateral-bar.component'
 import { NewPostComponent } from './new-post/new-post.component';
 import { RouterOutlet } from '@angular/router';
 
-
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -18,8 +17,6 @@ import { RouterOutlet } from '@angular/router';
   ],
 
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrl: './dashboard.component.scss',
 })
-export class DashboardComponent {
-
-}
+export class DashboardComponent {}

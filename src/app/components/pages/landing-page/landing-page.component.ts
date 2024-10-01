@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LandingHeaderComponent } from '@components/layouts/landing-header/landing-header.component';
 
@@ -7,10 +7,6 @@ import { LandingHeaderComponent } from '@components/layouts/landing-header/landi
   standalone: true,
   imports: [RouterLink, LandingHeaderComponent],
   templateUrl: './landing-page.component.html',
-  styleUrl: './landing-page.component.scss'
+  styleUrl: './landing-page.component.scss',
 })
-export class LandingPageComponent  {
-
-  
-
-}
+export class LandingPageComponent {}

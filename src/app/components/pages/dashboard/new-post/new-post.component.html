@@ -1,10 +1,13 @@
 <form (ngSubmit)="publishPost()" #postForm="ngForm" class="post-box-container">
-  <p>
-    Cuéntale algo a <span class="location">Guadalajara, México</span>...
-  </p>
+  <p>Cuéntale algo a <span class="location">Guadalajara, México</span>...</p>
 
   <!-- Input de texto con ngModel -->
-  <textarea name="postContent" [(ngModel)]="postContent" placeholder="¿Qué pasa por tu mente?" required>
+  <textarea
+    name="postContent"
+    [(ngModel)]="postContent"
+    placeholder="¿Qué pasa por tu mente?"
+    required
+  >
   </textarea>
 
   <div class="post-actions">
@@ -14,6 +17,8 @@
       </button>
       <button type="button" class="category-button">+ Agrega categoría</button>
     </div>
-    <button type="submit" class="publish-button" [disabled]="!postForm.valid">Publicar</button>
+    <button type="submit" class="publish-button" [disabled]="!postForm.valid">
+      Publicar
+    </button>
   </div>
 </form>

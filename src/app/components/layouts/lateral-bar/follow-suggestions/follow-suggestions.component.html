@@ -1,13 +1,13 @@
 <div class="suggestions-container">
   <h2>Sigue estas cuentas</h2>
   @for (account of accounts; track $index) {
-  <div class="account">
-    <div class="account-info">
-      <img [src]="account.image" alt="{{ account.name }}">
-      <span class="account-name">{{ account.name }}</span>
-      <span class="account-followers">{{ account.followers }}</span>
+    <div class="account">
+      <div class="account-info">
+        <img [src]="account.image" alt="{{ account.name }}" />
+        <span class="account-name">{{ account.name }}</span>
+        <span class="account-followers">{{ account.followers }}</span>
+      </div>
+      <button class="follow-button">Seguir</button>
     </div>
-    <button class="follow-button">Seguir</button>
-  </div>
   }
 </div>

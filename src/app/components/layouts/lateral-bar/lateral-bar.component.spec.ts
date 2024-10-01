@@ -8,9 +8,8 @@ describe('LateralBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LateralBarComponent]
-    })
-    .compileComponents();
+      imports: [LateralBarComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LateralBarComponent);
     component = fixture.componentInstance;

@@ -8,10 +8,14 @@ import { ProfileComponent } from './profile/profile.component';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [ForYouButtonComponent, PopularButtonComponent, CategoriesMenuComponent, SavedPostsComponent, ProfileComponent],
+  imports: [
+    ForYouButtonComponent,
+    PopularButtonComponent,
+    CategoriesMenuComponent,
+    SavedPostsComponent,
+    ProfileComponent,
+  ],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
-
-}
+export class NavbarComponent {}

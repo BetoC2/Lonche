@@ -7,8 +7,6 @@ import { FollowSuggestionsComponent } from './follow-suggestions/follow-suggesti
   standalone: true,
   imports: [LocationComponent, FollowSuggestionsComponent],
   templateUrl: './lateral-bar.component.html',
-  styleUrl: './lateral-bar.component.scss'
+  styleUrl: './lateral-bar.component.scss',
 })
-export class LateralBarComponent {
-
-}
+export class LateralBarComponent {}

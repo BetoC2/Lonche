@@ -8,9 +8,8 @@ describe('LandingHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LandingHeaderComponent]
-    })
-    .compileComponents();
+      imports: [LandingHeaderComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LandingHeaderComponent);
     component = fixture.componentInstance;

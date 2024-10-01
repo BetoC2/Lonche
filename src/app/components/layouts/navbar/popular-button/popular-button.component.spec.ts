@@ -8,9 +8,8 @@ describe('PopularButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PopularButtonComponent]
-    })
-    .compileComponents();
+      imports: [PopularButtonComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PopularButtonComponent);
     component = fixture.componentInstance;
