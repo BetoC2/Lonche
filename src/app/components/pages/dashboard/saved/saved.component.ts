@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { PostSaved } from '../post-saved/post-saved.component';
+import { PostSavedComponent } from '../post-saved/post-saved.component';
 
 @Component({
   selector: 'app-saved',
   standalone: true,
-  imports: [PostSaved],
+  imports: [PostSavedComponent],
   templateUrl: './saved.component.html',
-  styleUrl: './saved.component.scss'
+  styleUrl: './saved.component.scss',
 })
-export class SavedComponent {
-
-}
+export class SavedComponent {}

@@ -1,23 +1,29 @@
 <div class="categories-container">
-  <div class="categories-header" (click)="toggleDropdown()">
+  <div
+    class="categories-header"
+    (click)="toggleDropdown()"
+    (keydown.enter)="toggleDropdown()"
+    tabindex="0"
+  >
     <h2>Categorías</h2>
     <span class="chevron" [class.up]="!isCollapsed">
       <ng-icon name="faSolidAngleDown"></ng-icon>
     </span>
   </div>
   @if (!isCollapsed) {
-  <div class="search-container">
-    <input type="text" placeholder="Buscar categoría" class="search-input">
-  </div>
-  <div class="category-buttons">
-    @for (category of categories; track $index) {
-    <button class="category-button" [style.background-color]="category.backgroundColor">
-      {{ category.name }}
-    </button>
-    }
-  </div>
-  <div class="see-more">
-    Ver más
-  </div>
+    <div class="search-container">
+      <input type="text" placeholder="Buscar categoría" class="search-input" />
+    </div>
+    <div class="category-buttons">
+      @for (category of categories; track $index) {
+        <button
+          class="category-button"
+          [style.background-color]="category.backgroundColor"
+        >
+          {{ category.name }}
+        </button>
+      }
+    </div>
+    <div class="see-more">Ver más</div>
   }
 </div>

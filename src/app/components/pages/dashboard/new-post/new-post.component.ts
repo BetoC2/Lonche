@@ -12,7 +12,7 @@ import { faImages } from '@ng-icons/font-awesome/regular';
   providers: [provideIcons({ faImages })],
 })
 export class NewPostComponent {
-  postContent: string = '';
+  postContent = '';
 
   publishPost() {
     if (this.postContent.trim()) {
