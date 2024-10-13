@@ -1,4 +1,4 @@
-@use '../../../styles/theme' as t;
+@use "../../../styles/theme" as t;
 
 .container {
   top: t.$nav-bar-height;
@@ -6,12 +6,27 @@
   display: grid;
   width: calc(100% - 4rem);
   margin: 0 auto;
-  grid-template-columns: 18vw auto 22vw;
+  grid-template-columns: 16vw auto 24vw;
   gap: 2rem;
 
   .content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .container {
+    width: calc(100% - 2rem);
+    grid-template-columns: 20vw auto 30vw;
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }

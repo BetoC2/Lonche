@@ -1,15 +1,16 @@
-@use '../../../../styles/theme' as t;
+@use "../../../../styles/theme" as t;
 
 .suggestions-container {
   background-color: t.$sec;
-  padding: 10px 20px;
+  padding: 0.5rem 1rem;
   border-radius: 12px;
   margin-top: 20px;
 
   h2 {
     color: t.$light;
-    font-size: 20px;
+    font-size: 1.2rem;
     margin-bottom: 20px;
+    font-weight: 500;
   }
 
   .account {
@@ -24,22 +25,25 @@
     .account-info {
       display: flex;
       align-items: center;
+      font-size: 0.9rem;
+      overflow: hidden;
 
       img {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        margin-right: 10px;
+        margin-right: 0.5rem;
       }
 
       .account-name {
         color: t.$light;
-        font-weight: 500;
-        margin-right: 5px;
+        font-weight: 400;
+        margin-right: 0.25rem;
       }
 
       .account-followers {
         color: t.$dark-gray;
+        font-size: 0.9rem;
       }
     }
 
@@ -47,9 +51,10 @@
       background-color: t.$main;
       color: t.$light;
       border: none;
-      padding: 5px 15px;
+      padding: 0.4rem 0.7rem;
       border-radius: 8px;
       cursor: pointer;
+      font-size: 0.8rem;
 
       &:hover {
         background-color: darken(t.$main, 10%);
