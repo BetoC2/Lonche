@@ -6,14 +6,15 @@
   border-radius: 12px;
   width: 100%;
   max-width: 100%;
-  padding: 0 20px;
+  background-color: t.$sec;
+  padding: 0.25rem 1.5rem;
 
   p {
     color: t.$light;
     font-size: 16px;
     margin-bottom: 10px;
 
-    .location {
+    .location { 
       font-weight: bold;
       color: t.$light;
     }
@@ -23,7 +24,7 @@
     box-sizing: border-box;
     width: 100%;
     padding: 10px;
-    background-color: t.$sec;
+    background-color: t.$sec-gray;
     color: t.$light;
     border: none;
     border-radius: 10px;

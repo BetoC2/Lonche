@@ -1,20 +1,15 @@
+@use '../../../styles/theme' as t;
+
 .container {
-  display: flex;
-  justify-content: space-evenly;
-  height: 100%;
-  padding: 0 20px;
-  padding-top: 10%;
-
-  app-navbar {
-    width: 18%;
-  }
-
-  app-lateral-bar {
-    width: 22%;
-  }
+  top: t.$nav-bar-height;
+  position: relative;
+  display: grid;
+  width: calc(100% - 4rem);
+  margin: 0 auto;
+  grid-template-columns: 18vw auto 22vw;
+  gap: 2rem;
 
   .content {
-    width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

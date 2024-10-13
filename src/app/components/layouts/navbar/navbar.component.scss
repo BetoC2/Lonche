@@ -8,7 +8,7 @@ nav {
   justify-content: space-between;
   margin-bottom: 20px;
   gap: 10dvh;
-  top: 0;
+  top: t.$nav-bar-height;
   position: sticky;
 }
 

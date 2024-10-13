@@ -2,8 +2,11 @@
 // css reset
 @import './app/styles/theme';
 
-html {
+* *::after *::before {
   box-sizing: border-box;
+}
+
+html {
   min-width: 0;
 }
 
