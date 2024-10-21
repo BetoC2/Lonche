@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LandingPageComponent } from '@components/pages/landing-page/landing-page.component';
 import { LoginComponent } from './components/pages/login/login.component';
+import { SignUpComponent } from '@components/pages/sign-up/sign-up.component';
 import { DashboardComponent } from '@pages/dashboard/dashboard.component';
 import { ForYouComponent } from '@pages/dashboard/for-you/for-you.component';
 import { PopularComponent } from '@pages/dashboard/popular/popular.component';
@@ -10,6 +11,7 @@ export const routes: Routes = [
   // {path: '', redirectTo: 'home', pathMatch: 'full'},
   // { path: 'home', component: HomeComponent },
   { path: '', component: LandingPageComponent },
+  { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'dashboard',
