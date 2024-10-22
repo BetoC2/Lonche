@@ -15,9 +15,18 @@
         <label for="">Ciudad</label>
         <input
           type="text"
+          list="cities"
           placeholder="Escribe tu ciudad"
           formControlName="city"
         />
+        <datalist id="cities">
+          <option value="Ciudad de México"></option>
+          <option value="Guadalajara, MX"></option>
+          <option value="Guasave, MX"></option>
+          <option value="Monterrey"></option>
+          <option value="Puebla"></option>
+          <option value="Tijuana"></option>
+        </datalist>
       </div>
 
       <div>
