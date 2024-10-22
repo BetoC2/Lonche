@@ -10,6 +10,9 @@
 .signup {
   width: 40%;
   overflow: auto;
+  height: 80%;
+  border-radius: 10px;
+  text-align: center;
   &::-webkit-scrollbar {
     width: 8px;
   }
@@ -18,9 +21,6 @@
     background-color: $sec-gray;
     border-radius: 10px;
   }
-  height: 80%;
-  border-radius: 10px;
-  text-align: center;
 
   h1 {
     font-size: 1.5em;
