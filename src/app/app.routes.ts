@@ -6,6 +6,7 @@ import { DashboardComponent } from '@pages/dashboard/dashboard.component';
 import { ForYouComponent } from '@pages/dashboard/for-you/for-you.component';
 import { PopularComponent } from '@pages/dashboard/popular/popular.component';
 import { SavedComponent } from '@pages/dashboard/saved/saved.component';
+import { NotFoundComponent } from '@components/errors/not-found/not-found.component';
 
 export const routes: Routes = [
   // {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -22,4 +23,5 @@ export const routes: Routes = [
       { path: 'saved', component: SavedComponent },
     ],
   },
+  { path: '**', component: NotFoundComponent },
 ];
