@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { LandingHeaderComponent } from '@components/layouts/landing-header/landing-header.component';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { faBrandGoogle } from '@ng-icons/font-awesome/brands';
+import { BehaviorSubject } from 'rxjs';
 
-import { AuthService } from '../../../services/auth.service';
-import { User } from '../../../types/user';
+//Login Service
+import { LoginService } from '../../../services/login.service';
 
 import {
   FormBuilder,
@@ -29,38 +30,40 @@ import {
   styleUrl: './login.component.scss',
   viewProviders: [provideIcons({ faBrandGoogle })],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   loginForm!: FormGroup;
+  isLoggedIn$: BehaviorSubject<boolean>;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private loginService: LoginService,
     private router: Router,
-    private userService: AuthService,
   ) {
-    this.loginForm = formBuilder.group({
+    this.isLoggedIn$ = this.loginService.isLoggedInSubject;
+    this.loginForm = new FormBuilder().group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-    });
-  }
-
-  ngOnInit(): void {
-    this.userService.getAll().subscribe({
-      next: (response: User[]) => {
-        console.log(response);
-      },
-      error: (e) => {
-        console.log('Ocurrio un error', e);
-      },
     });
   }
 
   login() {
     console.log('Form: ', this.loginForm);
     if (this.loginForm.valid) {
-      console.log('Formulario valido');
-      this.router.navigate(['/dashboard']);
+      const { email, password } = this.loginForm.value;
+
+      this.loginService.login(email, password).subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.router.navigate(['/dashboard']);
+          } else {
+            alert('Usuario o contraseña incorrectos');
+          }
+        },
+        error: () => {
+          alert('Error en el proceso de login.');
+        },
+      });
     } else {
-      alert('Formulario invalido');
+      alert('Formulario inválido');
     }
   }
 }
