@@ -7,11 +7,11 @@ export interface User {
   email: string;
   password?: string;
   birthdate: Date;
-  role: string;
-  status: string;
-  numFollowers: number;
-  numFollowing: number;
-  joinDate: Date;
+  role?: string;
+  status?: string;
+  numFollowers?: number;
+  numFollowing?: number;
+  joinDate?: Date;
   followers?: string[];
   following?: string[];
 }

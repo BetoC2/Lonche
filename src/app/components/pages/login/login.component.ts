@@ -3,10 +3,10 @@ import { RouterModule, Router } from '@angular/router';
 import { LandingHeaderComponent } from '@components/layouts/landing-header/landing-header.component';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { faBrandGoogle } from '@ng-icons/font-awesome/brands';
-import { BehaviorSubject } from 'rxjs';
 
-//Login Service
+// Login Service
 import { LoginService } from '../../../services/login.service';
+import { AuthService } from '../../../services/auth.service'; // Importamos AuthService
 
 import {
   FormBuilder,
@@ -27,18 +27,17 @@ import {
     ReactiveFormsModule,
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrls: ['./login.component.scss'],
   viewProviders: [provideIcons({ faBrandGoogle })],
 })
 export class LoginComponent {
   loginForm!: FormGroup;
-  isLoggedIn$: BehaviorSubject<boolean>;
 
   constructor(
     private loginService: LoginService,
+    private authService: AuthService, // Usamos AuthService para estado de autenticación
     private router: Router,
   ) {
-    this.isLoggedIn$ = this.loginService.isLoggedInSubject;
     this.loginForm = new FormBuilder().group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -53,7 +52,11 @@ export class LoginComponent {
       this.loginService.login(email, password).subscribe({
         next: (response) => {
           if (response.success) {
-            this.router.navigate(['/dashboard']);
+            const userCookie = this.authService.getCookie('user');
+            if (userCookie) {
+              this.authService.setUserCookie(userCookie); // Guardamos la cookie del usuario
+              this.router.navigate(['/dashboard']); // Redireccionamos al dashboard
+            }
           } else {
             alert('Usuario o contraseña incorrectos');
           }

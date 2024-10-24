@@ -7,13 +7,14 @@ import { ForYouComponent } from '@pages/dashboard/for-you/for-you.component';
 import { PopularComponent } from '@pages/dashboard/popular/popular.component';
 import { SavedComponent } from '@pages/dashboard/saved/saved.component';
 import { NotFoundComponent } from '@components/errors/not-found/not-found.component';
+import { AuthGuard } from './auth.guard'; // Importamos el guard
 
 export const routes: Routes = [
   // {path: '', redirectTo: 'home', pathMatch: 'full'},
   // { path: 'home', component: HomeComponent },
-  { path: '', component: LandingPageComponent },
-  { path: 'signup', component: SignUpComponent },
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LandingPageComponent, canActivate: [AuthGuard] },
+  { path: 'signup', component: SignUpComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   {
     path: 'dashboard',
     component: DashboardComponent,

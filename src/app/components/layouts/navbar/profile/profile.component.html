@@ -7,5 +7,9 @@
     />
     <span class="profile-name">{{ userName }}</span>
   </div>
-  <ng-icon name="faSolidGear" class="settings-icon"></ng-icon>
+  <ng-icon
+    name="faSolidGear"
+    class="settings-icon"
+    (click)="logout()"
+  ></ng-icon>
 </div>
