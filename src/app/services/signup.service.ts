@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map, catchError } from 'rxjs/operators';
-import { User } from '../types/user'; // Asegúrate de que el tipo User esté correctamente importado
+import { User } from '../types/user';
 
 @Injectable({
   providedIn: 'root',

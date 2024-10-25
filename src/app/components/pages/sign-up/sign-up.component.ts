@@ -62,10 +62,13 @@ export class SignUpComponent {
     if (this.signupForm.valid) {
       const formValues = this.signupForm.value;
 
-      // Obtener el nombre de la ciudad seleccionada
+      if (formValues.password !== formValues.confirm) {
+        alert('Las contraseñas no coinciden.');
+        return;
+      }
+
       const selectedCityName = formValues.city;
 
-      // Buscar el ID de la ciudad en el mapa
       const cityId =
         this.citiesMap[selectedCityName as keyof typeof this.citiesMap] || null;
 
@@ -80,22 +83,21 @@ export class SignUpComponent {
           password: formValues.password,
         };
 
-        this.signupService.register(userData).subscribe(
-          (response) => {
+        this.signupService.register(userData).subscribe({
+          next: (response) => {
             const userCookie = this.authService.getCookie('user');
-            if (userCookie) {
-              this.authService.setUserCookie(userCookie);
-            }
             console.log('User registered:', response);
-            this.router.navigate(['/dashboard']);
+            if (userCookie) {
+              this.router.navigate(['/dashboard']);
+            }
           },
-          (error) => {
+          error: (error) => {
             console.error('Error registering user:', error);
             alert(
               'Ocurrió un error durante el registro. Inténtalo nuevamente.',
             );
           },
-        );
+        });
       } else {
         alert('Ciudad no válida.');
       }

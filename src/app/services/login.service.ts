@@ -19,11 +19,7 @@ export class LoginService {
   // Iniciar sesión
   login(email: string, password: string) {
     return this.http
-      .post(
-        `${this.url}login`,
-        { email, password },
-        { observe: 'response', withCredentials: true },
-      )
+      .post(`${this.url}login`, { email, password }, { withCredentials: true })
       .pipe(
         map(() => {
           const userCookie = this.authService.getCookie('user');

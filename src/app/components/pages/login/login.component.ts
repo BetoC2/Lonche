@@ -53,9 +53,9 @@ export class LoginComponent {
         next: (response) => {
           if (response.success) {
             const userCookie = this.authService.getCookie('user');
+            console.log('User cookie:', this.authService.parseUserCookie());
             if (userCookie) {
-              this.authService.setUserCookie(userCookie); // Guardamos la cookie del usuario
-              this.router.navigate(['/dashboard']); // Redireccionamos al dashboard
+              this.router.navigate(['/dashboard']);
             }
           } else {
             alert('Usuario o contraseña incorrectos');

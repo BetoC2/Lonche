@@ -39,7 +39,6 @@ export class AuthService {
             throw new Error('Invalid serialized cookie format');
           }
         } else {
-          // Ya es Json
           parsedValue = userCookie;
         }
 
