@@ -13,10 +13,9 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.authService.getIsLoggedIn()) {
-      // Si el usuario ya está logueado, redirige al dashboard
       this.router.navigate(['/dashboard']);
-      return false; // No permitir la activación de esta ruta
+      return false;
     }
-    return true; // Si no está logueado, permitir acceso
+    return true;
   }
 }
