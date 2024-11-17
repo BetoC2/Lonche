@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+import { User } from '../types/user';
+import { catchError, map, of } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { catchError, map } from 'rxjs/operators';
-import { AuthService } from './auth.service';
+import { AuthService } from './shared/auth.service';
+import { HttpService } from './shared/http-service.service'; // Importa tu HttpService
 
 @Injectable({
   providedIn: 'root',
@@ -12,37 +12,33 @@ export class LoginService {
   private url = `${environment.apiUrl}`;
 
   constructor(
-    private http: HttpClient,
+    private httpService: HttpService,
     private authService: AuthService,
   ) {}
 
-  // Iniciar sesión
   login(email: string, password: string) {
-    return this.http
-      .post(`${this.url}login`, { email, password }, { withCredentials: true })
+    return this.httpService
+      .post<
+        { email: string; password: string },
+        { token?: string; user?: User }
+      >('login', { email, password }, { withCredentials: false })
       .pipe(
-        map(() => {
-          const userCookie = this.authService.getCookie('user');
-          if (userCookie) {
-            this.authService.setUserCookie(userCookie);
-            console.log(this.authService.parseUserCookie());
-            console.log('Login exitoso, cookie enviada por el servidor.');
-            return { success: true };
-          } else {
-            console.error('Usuario no encontrado o credenciales incorrectas.');
-            throw new Error('Usuario no encontrado o credenciales incorrectas');
+        map((response) => {
+          if (response.token) {
+            this.authService.setToken(response.token);
           }
+          return response;
         }),
         catchError((error) => {
           console.error('Error en el login: ', error);
-          return of({ success: false });
+          return of({ token: undefined, user: undefined });
         }),
       );
   }
 
-  // Cerrar sesión (logout)
+  // Cerrar sesión
   logout() {
-    this.authService.clearUserCookie();
+    this.authService.logout();
     console.log('Logout exitoso.');
     return { success: true };
   }

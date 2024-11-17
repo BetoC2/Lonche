@@ -1,39 +1,31 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { map, catchError } from 'rxjs/operators';
 import { User } from '../types/user';
+import { AuthService } from './shared/auth.service';
+import { Observable } from 'rxjs';
+import { HttpService } from './shared/http-service.service'; // Importa tu HttpService
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SignupService {
-  private url = `${environment.apiUrl}`;
-
   constructor(
-    private http: HttpClient,
+    private httpService: HttpService,
     private authService: AuthService,
   ) {}
 
-  register(userData: User): Observable<User> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    return this.http
-      .post<User>(`${this.url}register`, userData, {
-        headers,
-        withCredentials: true,
-      })
+  register(userData: User): Observable<{ token?: string }> {
+    return this.httpService
+      .post<
+        User,
+        { token?: string; user?: User }
+      >('register', userData, { withCredentials: true })
       .pipe(
-        map((newUser: User) => {
-          const userCookie = this.authService.getCookie('user');
-
-          if (userCookie !== null) {
-            this.authService.setUserCookie(userCookie);
+        map((response) => {
+          if (response.token) {
+            this.authService.setToken(response.token);
           }
-
-          return newUser; // Devolver el usuario recién creado
+          return response;
         }),
         catchError((error) => {
           console.error('Error during user registration:', error);

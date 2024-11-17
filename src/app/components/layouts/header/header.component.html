@@ -4,7 +4,12 @@
   </div>
   <div class="navbar-elements">
     <input type="text" placeholder="Buscar..." />
-    <div class="notification-bell">
+    <div
+      class="notification-bell"
+      (click)="openDialog()"
+      (keydown.enter)="openDialog()"
+      tabindex="0"
+    >
       <ng-icon class="google-icon" name="faSolidBell"></ng-icon>
       <span class="notification-count">9</span>
     </div>

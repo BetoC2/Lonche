@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { User } from '../../../types/user';
+import { Router, RouterModule } from '@angular/router';
 import { LandingHeaderComponent } from '@components/layouts/landing-header/landing-header.component';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { faBrandGoogle } from '@ng-icons/font-awesome/brands';
 
 // Login Service
 import { LoginService } from '../../../services/login.service';
-import { AuthService } from '../../../services/auth.service'; // Importamos AuthService
+import { AuthService } from '../../../services/shared/auth.service'; // Importamos AuthService
 
 import {
   FormBuilder,
@@ -35,38 +36,42 @@ export class LoginComponent {
 
   constructor(
     private loginService: LoginService,
-    private authService: AuthService, // Usamos AuthService para estado de autenticación
+    private authService: AuthService,
     private router: Router,
+    private fb: FormBuilder, // Inyectamos FormBuilder para simplificar
   ) {
-    this.loginForm = new FormBuilder().group({
+    this.createForm();
+  }
+
+  private createForm() {
+    this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
   login() {
-    console.log('Form: ', this.loginForm);
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-
-      this.loginService.login(email, password).subscribe({
-        next: (response) => {
-          if (response.success) {
-            const userCookie = this.authService.getCookie('user');
-            console.log('User cookie:', this.authService.parseUserCookie());
-            if (userCookie) {
-              this.router.navigate(['/dashboard']);
-            }
-          } else {
-            alert('Usuario o contraseña incorrectos');
-          }
-        },
-        error: () => {
-          alert('Error en el proceso de login.');
-        },
-      });
-    } else {
-      alert('Formulario inválido');
+    if (this.loginForm.invalid) {
+      alert('Formulario inválido. Revisa los campos.');
+      return;
     }
+
+    const { email, password } = this.loginForm.value;
+
+    this.loginService.login(email, password).subscribe({
+      next: (response: { token?: string; user?: User }) => {
+        if (response.token) {
+          console.log(response.token, response.user);
+          this.authService.setToken(response.token);
+          this.router.navigate(['/dashboard']);
+        } else {
+          alert('Usuario o contraseña incorrectos.');
+        }
+      },
+      error: (err) => {
+        console.error('Error en el login: ', err);
+        alert('Hubo un error al iniciar sesión. Intenta más tarde.');
+      },
+    });
   }
 }

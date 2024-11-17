@@ -5,8 +5,8 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { faBrandGoogle } from '@ng-icons/font-awesome/brands';
 import { User } from '../../../types/user';
 
-// Servicio de autentificación
-import { AuthService } from '../../../services/auth.service';
+// Servicios
+import { AuthService } from '../../../services/shared/auth.service';
 import { SignupService } from '../../../services/signup.service';
 
 import {
@@ -15,6 +15,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
   Validators,
+  AbstractControl,
 } from '@angular/forms';
 
 @Component({
@@ -45,20 +46,31 @@ export class SignUpComponent {
     private signupService: SignupService,
     private authService: AuthService,
   ) {
-    this.signupForm = formBuilder.group({
-      city: ['', Validators.required],
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      name: ['', Validators.required],
-      lastname: ['', Validators.required],
-      birthdate: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirm: ['', [Validators.required, Validators.minLength(8)]],
-    });
+    this.signupForm = formBuilder.group(
+      {
+        city: ['', Validators.required],
+        username: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        name: ['', Validators.required],
+        lastname: ['', Validators.required],
+        birthdate: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        confirm: ['', [Validators.required, Validators.minLength(8)]],
+      },
+      {
+        validators: this.passwordsMatchValidator, // Validador personalizado
+      },
+    );
+  }
+
+  // Validador personalizado para contraseñas
+  private passwordsMatchValidator(form: AbstractControl) {
+    const password = form.get('password')?.value;
+    const confirm = form.get('confirm')?.value;
+    return password === confirm ? null : { passwordsMismatch: true };
   }
 
   signup() {
-    console.log('Form? ', this.signupForm);
     if (this.signupForm.valid) {
       const formValues = this.signupForm.value;
 
@@ -69,6 +81,7 @@ export class SignUpComponent {
 
       const selectedCityName = formValues.city;
 
+      // Validar el ID de la ciudad
       const cityId =
         this.citiesMap[selectedCityName as keyof typeof this.citiesMap] || null;
 
@@ -84,17 +97,20 @@ export class SignUpComponent {
         };
 
         this.signupService.register(userData).subscribe({
-          next: (response) => {
-            const userCookie = this.authService.getCookie('user');
-            console.log('User registered:', response);
-            if (userCookie) {
+          next: (response: { token?: string; user?: User }) => {
+            if (response.token) {
+              console.log(response.token, response.user);
+              this.authService.setToken(response.token);
               this.router.navigate(['/dashboard']);
+            } else {
+              alert('Error en el registro. Intenta nuevamente.');
             }
           },
           error: (error) => {
-            console.error('Error registering user:', error);
+            console.error('Error registrando usuario:', error);
             alert(
-              'Ocurrió un error durante el registro. Inténtalo nuevamente.',
+              'Ocurrió un error durante el registro. Inténtalo nuevamente.' +
+                error,
             );
           },
         });
@@ -102,7 +118,7 @@ export class SignUpComponent {
         alert('Ciudad no válida.');
       }
     } else {
-      alert('Debes llenar todos los campos');
+      alert('Debes llenar todos los campos.');
     }
   }
 }
