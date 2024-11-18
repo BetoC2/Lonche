@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private observableToken: BehaviorSubject<string | null> = new BehaviorSubject<
+  observableToken: BehaviorSubject<string | null> = new BehaviorSubject<
     string | null
   >(null);
 
   constructor() {
-    const token = this.getTokenFromStorage();
+    const token = this.getToken();
     if (token) {
       this.observableToken.next(token);
     }
   }
 
-  private getTokenFromStorage(): string | null {
+  getToken(): string | null {
     try {
       return localStorage.getItem('token');
     } catch (error) {
@@ -25,8 +25,12 @@ export class AuthService {
     }
   }
 
-  getToken(): Observable<string | null> {
-    return this.observableToken.asObservable();
+  getUserID(): string | null {
+    return localStorage.getItem('userID');
+  }
+
+  getUserData(): string | null {
+    return localStorage.getItem('userData');
   }
 
   setToken(token: string): void {
@@ -38,6 +42,14 @@ export class AuthService {
     }
   }
 
+  setUserID(userID: string): void {
+    try {
+      localStorage.setItem('userID', userID);
+    } catch (error) {
+      console.error('Error setting userID in localStorage', error);
+    }
+  }
+
   isLogged(): boolean {
     return !!this.getToken();
   }
@@ -45,6 +57,7 @@ export class AuthService {
   logout(): void {
     try {
       localStorage.removeItem('token');
+      localStorage.clear();
       this.observableToken.next(null);
     } catch (error) {
       console.error('Error removing token from localStorage', error);

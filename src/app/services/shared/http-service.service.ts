@@ -19,7 +19,7 @@ export class HttpService {
 
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getToken || ''}`,
+      Authorization: `Bearer ${this.authService.getToken() || ''}`,
       'Content-Type': 'application/json',
     });
   }

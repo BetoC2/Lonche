@@ -7,14 +7,25 @@ import { ForYouComponent } from '@pages/dashboard/for-you/for-you.component';
 import { PopularComponent } from '@pages/dashboard/popular/popular.component';
 import { SavedComponent } from '@pages/dashboard/saved/saved.component';
 import { NotFoundComponent } from '@components/errors/not-found/not-found.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { PreventExitGuard } from './guards/prevent-exit.guard';
 
 export const routes: Routes = [
-  // {path: '', redirectTo: 'home', pathMatch: 'full'},
-  // { path: 'home', component: HomeComponent },
-  { path: '', component: LandingPageComponent },
-  { path: 'signup', component: SignUpComponent },
-  { path: 'login', component: LoginComponent },
+  {
+    path: '',
+    component: LandingPageComponent,
+    canActivate: [PreventExitGuard],
+  },
+  {
+    path: 'signup',
+    component: SignUpComponent,
+    canActivate: [PreventExitGuard],
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [PreventExitGuard],
+  },
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -25,5 +36,9 @@ export const routes: Routes = [
       { path: 'saved', component: SavedComponent },
     ],
   },
-  { path: '**', component: NotFoundComponent },
+  {
+    path: '**',
+    component: NotFoundComponent,
+    canActivate: [PreventExitGuard],
+  },
 ];

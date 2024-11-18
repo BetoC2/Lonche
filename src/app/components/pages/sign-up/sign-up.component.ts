@@ -100,7 +100,6 @@ export class SignUpComponent {
           next: (response: { token?: string; user?: User }) => {
             if (response.token) {
               console.log(response.token, response.user);
-              this.authService.setToken(response.token);
               this.router.navigate(['/dashboard']);
             } else {
               alert('Error en el registro. Intenta nuevamente.');

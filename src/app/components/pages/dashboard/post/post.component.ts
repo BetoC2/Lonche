@@ -29,7 +29,7 @@ export class PostComponent {
   category = 'Cultura';
   text = 'Visité el centro histórico y está en muy buenas condiciones!! ⭐';
   imageUrl =
-    'https://www.gdlgo.com/wp-content/uploads/2018/01/Catedral_de_Guadalajara.jpg'; // Ruta a la imagen
+    'https://www.gdlgo.com/wp-content/uploads/2018/01/Catedral_de_Guadalajara.jpg';
   likes = 2;
   dislikes = 1.5;
   comments = 500;

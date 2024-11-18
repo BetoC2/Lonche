@@ -61,8 +61,6 @@ export class LoginComponent {
     this.loginService.login(email, password).subscribe({
       next: (response: { token?: string; user?: User }) => {
         if (response.token) {
-          console.log(response.token, response.user);
-          this.authService.setToken(response.token);
           this.router.navigate(['/dashboard']);
         } else {
           alert('Usuario o contraseña incorrectos.');
