@@ -13,11 +13,22 @@ import { faImages } from '@ng-icons/font-awesome/regular';
 })
 export class NewPostComponent {
   postContent = '';
+  selectedFileName: string | null = null;
 
   publishPost() {
     if (this.postContent.trim()) {
       console.log('Post publicado:', this.postContent);
       this.postContent = '';
+    }
+  }
+
+  onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      this.selectedFileName = input.files[0].name;
+      console.log('Imagen seleccionada:', input.files[0]);
+    } else {
+      this.selectedFileName = null;
     }
   }
 }

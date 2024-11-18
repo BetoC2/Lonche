@@ -7,14 +7,39 @@
     [(ngModel)]="postContent"
     placeholder="¿Qué pasa por tu mente?"
     required
-  >
-  </textarea>
+  ></textarea>
 
   <div class="post-actions">
     <div class="left-actions">
-      <button type="button" class="image-button">
+      <style>
+        /* Oculta el input de archivo para que no se vea */
+        .file-input {
+          display: none;
+        }
+
+        /* Estilo para el nombre del archivo */
+        .file-name {
+          font-size: 14px;
+          color: #fff;
+          margin-left: 8px;
+        }
+      </style>
+
+      <!-- Botón personalizado que abrirá el selector de archivos -->
+      <button type="button" class="image-button" (click)="fileInput.click()">
         <ng-icon name="faImages"></ng-icon>
       </button>
+
+      <input
+        type="file"
+        #fileInput
+        class="file-input"
+        accept="image/*"
+        (change)="onFileChange($event)"
+      />
+
+      <span class="file-name">{{ selectedFileName }}</span>
+
       <button type="button" class="category-button">+ Agrega categoría</button>
     </div>
     <button type="submit" class="publish-button" [disabled]="!postForm.valid">

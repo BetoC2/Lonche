@@ -24,11 +24,16 @@ export class SignupService {
         map((response) => {
           if (response.token) {
             this.authService.setToken(response.token);
-            const user = response.user as unknown as {
-              _doc?: { _id?: string };
-            };
-            const userID = user?._doc?._id || '';
+
+            const userData =
+              response.user && '_doc' in response.user
+                ? (response.user._doc as User)
+                : response.user;
+            const userID = (userData as User)?._id || '';
+
             this.authService.setUserID(userID);
+            const userDataCopy = { ...userData } as User;
+            this.authService.setUserData(userDataCopy);
           }
           return response;
         }),
