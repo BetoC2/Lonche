@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { cssMoreAlt } from '@ng-icons/css.gg';
 import {
   faSolidHeart,
@@ -10,9 +11,9 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [NgIconComponent],
+  imports: [CommonModule, NgIconComponent],
   templateUrl: './post.component.html',
-  styleUrl: './post.component.scss',
+  styleUrls: ['./post.component.scss'],
   providers: [
     provideIcons({
       cssMoreAlt,
@@ -23,14 +24,12 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
   ],
 })
 export class PostComponent {
-  title = 'Quedó bien la remodelación!';
-  username = 'saulrazo2';
-  timePosted = 'Hace 4 horas';
-  category = 'Cultura';
-  text = 'Visité el centro histórico y está en muy buenas condiciones!! ⭐';
-  imageUrl =
-    'https://www.gdlgo.com/wp-content/uploads/2018/01/Catedral_de_Guadalajara.jpg';
-  likes = 2;
-  dislikes = 1.5;
-  comments = 500;
+  @Input() title!: string;
+  @Input() username!: string;
+  @Input() category!: string;
+  @Input() text!: string;
+  @Input() imageUrl!: string;
+  @Input() likes!: number;
+  @Input() dislikes!: number;
+  @Input() comments!: number;
 }

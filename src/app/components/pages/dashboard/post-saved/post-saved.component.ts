@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { cssMoreAlt } from '@ng-icons/css.gg';
+import { CommonModule } from '@angular/common';
 import {
   faSolidHeart,
   faSolidHeartCrack,
@@ -10,7 +11,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 @Component({
   selector: 'app-post-saved',
   standalone: true,
-  imports: [NgIconComponent],
+  imports: [NgIconComponent, CommonModule],
   templateUrl: '../post/post.component.html',
   styleUrl: '../post/post.component.scss',
   providers: [

@@ -8,7 +8,7 @@
   <div class="user-info">
     <span class="username">{{ username }} </span>
     <span>&#124;</span>
-    <span class="time">{{ timePosted }}</span>
+    <!-- <span class="time">{{ timePosted }}</span> -->
   </div>
 
   <div class="category">
@@ -17,7 +17,12 @@
 
   <p class="post-text">{{ text }}</p>
 
-  <img [src]="imageUrl" alt="Post image" class="post-image" />
+  <img
+    *ngIf="imageUrl !== ''"
+    [src]="imageUrl"
+    alt="Post image"
+    class="post-image"
+  />
 
   <div class="post-footer">
     <div class="icon-group">

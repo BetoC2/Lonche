@@ -19,7 +19,7 @@ export class HttpService {
 
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getToken() || ''}`,
+      auth: `${this.authService.getToken() || ''}`,
       'Content-Type': 'application/json',
     });
   }
@@ -56,16 +56,26 @@ export class HttpService {
     body: Req,
     options?: { headers?: HttpHeaders; withCredentials?: boolean },
   ): Observable<Res> {
+    const headers = options?.headers || this.getHeaders();
+
     return this.httpClient
-      .post<Res>(`${this.url}${endpoint}`, body, options)
+      .post<Res>(`${this.url}${endpoint}`, body, { ...options, headers })
       .pipe(catchError(this.handleError));
   }
 
-  put<T>(endpoint: string, data: T) {
+  put<Req, Res>(endpoint: string, data: Req | FormData): Observable<Res> {
+    let headers = this.getHeaders();
+
+    if (data instanceof FormData) {
+      headers = headers.delete('Content-Type');
+    }
+
+    const options = {
+      headers,
+    };
+
     return this.httpClient
-      .put<T>(`${this.url}${endpoint}`, data, {
-        headers: this.getHeaders(),
-      })
+      .put<Res>(`${this.url}${endpoint}`, data, options)
       .pipe(catchError(this.handleError));
   }
 

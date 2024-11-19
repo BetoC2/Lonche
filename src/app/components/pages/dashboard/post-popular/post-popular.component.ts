@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { cssMoreAlt } from '@ng-icons/css.gg';
 import {
   faSolidHeart,
@@ -10,7 +11,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 @Component({
   selector: 'app-post-popular',
   standalone: true,
-  imports: [NgIconComponent],
+  imports: [NgIconComponent, CommonModule],
   templateUrl: '../post/post.component.html',
   styleUrl: '../post/post.component.scss',
   providers: [

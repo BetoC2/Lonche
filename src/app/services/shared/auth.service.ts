@@ -78,6 +78,7 @@ export class AuthService {
   logout(): void {
     try {
       localStorage.removeItem('token');
+      localStorage.removeItem('userID');
       localStorage.removeItem('userData');
       localStorage.clear();
       this.observableToken.next(null);
