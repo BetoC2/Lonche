@@ -27,6 +27,7 @@
     "@ng-icons/core": "^29.5.0",
     "@ng-icons/css.gg": "^29.5.0",
     "@ng-icons/font-awesome": "^29.5.0",
+    "date-fns": "^4.1.0",
     "ngx-cookie-service": "^18.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

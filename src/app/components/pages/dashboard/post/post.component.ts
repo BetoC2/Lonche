@@ -26,6 +26,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 export class PostComponent {
   @Input() title!: string;
   @Input() username!: string;
+  @Input() timePosted!: string;
   @Input() category!: string;
   @Input() text!: string;
   @Input() imageUrl!: string;
