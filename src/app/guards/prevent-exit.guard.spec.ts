@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { CanDeactivateFn } from '@angular/router';
+import { CanActivateFn } from '@angular/router';
 
-import { preventExitGuard } from './prevent-exit.guard';
+import { PreventExitGuard } from './prevent-exit.guard';
 
 describe('preventExitGuard', () => {
-  const executeGuard: CanDeactivateFn = (...guardParameters) =>
-    TestBed.runInInjectionContext(() => preventExitGuard(...guardParameters));
+  const executeGuard: CanActivateFn = (...guardParameters) =>
+    TestBed.runInInjectionContext(() => PreventExitGuard(...guardParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

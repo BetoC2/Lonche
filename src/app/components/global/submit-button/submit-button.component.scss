@@ -1,12 +1,11 @@
-@import '../../../../theme';
+@import "../../../styles/../styles/theme";
 
-button{
-    background-color: $main;
-    color: $light;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    font-weight: bold;
-    font-size: 1em;
-
+button {
+  background-color: $main;
+  color: $light;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  font-size: 1em;
 }
