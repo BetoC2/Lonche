@@ -1,4 +1,4 @@
-@use '../../../../styles/theme' as t;
+@use "../../../../styles/theme" as t;
 
 .profile-container {
   display: flex;
@@ -24,12 +24,12 @@
 
 .profile-name {
   margin-left: 10px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
   color: white;
 }
 
 .settings-icon {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   cursor: pointer;
 }

@@ -8,8 +8,13 @@
     <span class="profile-name">{{ userName }}</span>
   </div>
   <ng-icon
-    name="faSolidGear"
+    name="faSolidArrowRightToBracket"
     class="settings-icon"
     (click)="logout()"
+  ></ng-icon>
+  <ng-icon
+    name="faSolidGear"
+    class="settings-icon"
+    (click)="openDialog()"
   ></ng-icon>
 </div>
