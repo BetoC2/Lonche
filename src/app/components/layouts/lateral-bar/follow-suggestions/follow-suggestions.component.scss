@@ -55,5 +55,18 @@
         background-color: darken(t.$main, 10%);
       }
     }
+
+    .unfollow-button {
+      background-color: t.$dark-gray;
+      color: t.$dark;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken(t.$dark-gray, 10%);
+      }
+    }
   }
 }
