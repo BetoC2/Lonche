@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { HttpService } from 'app/services/shared/http-service.service';
+import { SocketService } from 'app/services/shared/socket.service';
 import { Notification } from 'app/types/notification';
 
 @Component({
@@ -17,10 +18,15 @@ export class NotificationsComponent implements OnInit {
   notifications: Notification[] = [];
   private userID = localStorage.getItem('userID');
 
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private socketService: SocketService,
+  ) {}
 
   ngOnInit(): void {
     this.fetchNotifications();
+    this.listenToSocketNotifications();
+    this.socketService.joinRoom(this.userID!);
   }
 
   fetchNotifications(): void {
@@ -41,7 +47,14 @@ export class NotificationsComponent implements OnInit {
       });
   }
 
-  clearNotifications() {
+  listenToSocketNotifications(): void {
+    this.socketService.onNotification((notification) => {
+      console.log('Notificación recibida:', notification);
+      this.notifications.unshift(notification); // Agregar la nueva notificación al inicio de la lista
+    });
+  }
+
+  clearNotifications(): void {
     this.notifications = [];
   }
 }

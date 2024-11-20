@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'app/services/shared/http-service.service';
 import { NgClass } from '@angular/common';
+import { SocketService } from 'app/services/shared/socket.service';
 
 interface Account {
   _id: string;
@@ -25,7 +26,10 @@ export class FollowSuggestionsComponent implements OnInit {
   accounts: Account[] = [];
   userData = JSON.parse(localStorage.getItem('userData') as string);
 
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private socketService: SocketService,
+  ) {}
 
   ngOnInit(): void {
     this.fetchAccounts();
@@ -59,12 +63,18 @@ export class FollowSuggestionsComponent implements OnInit {
   followAccount(account: Account): void {
     this.httpService.post(`users/follow/${account._id}`, {}).subscribe({
       next: (data) => {
-        console.log(data);
         account.isFollowed = true;
         account.numFollowers++;
         this.userData.following.push(account._id);
         this.userData.numFollowing++;
         localStorage.setItem('userData', JSON.stringify(this.userData));
+
+        // Emitir evento de follow al backend
+        this.socketService.emitFollowNotification({
+          id_user: this.userData._id,
+          username: this.userData.username,
+          id_receiver: account._id,
+        });
       },
       error: (err) => {
         console.error('Error following account:', err);
@@ -75,7 +85,6 @@ export class FollowSuggestionsComponent implements OnInit {
   unfollowAccount(account: Account): void {
     this.httpService.post(`users/unfollow/${account._id}`, {}).subscribe({
       next: (data) => {
-        console.log(data);
         account.isFollowed = false;
         account.numFollowers--;
         this.userData.following = this.userData.following.filter(
