@@ -3,11 +3,19 @@
   @for (account of accounts; track $index) {
     <div class="account">
       <div class="account-info">
-        <img [src]="account.image" alt="{{ account.name }}" />
-        <span class="account-name">{{ account.name }}</span>
-        <span class="account-followers">{{ account.followers }}</span>
+        <img [src]="account.profilePic" alt="{{ account.username }}" />
+        <span class="account-name">{{ account.username }}</span>
+        <span class="account-followers">{{ account.numFollowers }}</span>
       </div>
-      <button class="follow-button">Seguir</button>
+      <button
+        [ngClass]="{
+          'follow-button': !account.isFollowed,
+          'unfollow-button': account.isFollowed,
+        }"
+        (click)="toggleFollow(account)"
+      >
+        {{ account.isFollowed ? "unfollow" : "follow" }}
+      </button>
     </div>
   }
 </div>

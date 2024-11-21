@@ -31,6 +31,5 @@ export class PostComponent {
   @Input() text!: string;
   @Input() imageUrl!: string;
   @Input() likes!: number;
-  @Input() dislikes!: number;
   @Input() comments!: number;
 }

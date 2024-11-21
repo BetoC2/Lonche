@@ -1,42 +1,101 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpService } from 'app/services/shared/http-service.service';
+import { NgClass } from '@angular/common';
+import { SocketService } from 'app/services/shared/socket.service';
+
+interface Account {
+  _id: string;
+  id_city: string;
+  username: string;
+  profilePic: string;
+  bio: string;
+  joinDate: Date;
+  numFollowers: number;
+  numFollowing: number;
+  isFollowed?: boolean;
+}
 
 @Component({
   selector: 'app-follow-suggestions',
   standalone: true,
-  imports: [],
+  imports: [NgClass],
   templateUrl: './follow-suggestions.component.html',
   styleUrl: './follow-suggestions.component.scss',
 })
-export class FollowSuggestionsComponent {
-  accounts = [
-    {
-      name: 'alan_mozo',
-      followers: '20M',
-      image:
-        'https://images.ecestaticos.com/s_s7gS41_P0oztzk21p0dS-IJYI=/0x0:2121x1414/1200x900/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2Fd35%2Fa06%2F9fa%2Fd35a069fa93f0c03ec31659c38cb16e1.jpg',
-    },
-    {
-      name: 'lusito_comunica',
-      followers: '2M',
-      image:
-        'https://yt3.googleusercontent.com/ytc/AIdro_nyXrAAt-FJ5azOAUoNd5Iw0aGQb-_b-SLSOkW0B_N2md4=s900-c-k-c0x00ffffff-no-rj',
-    },
-    {
-      name: 'cristiano',
-      followers: '100K',
-      image: 'https://fcb-abj-pre.s3.amazonaws.com/img/jugadors/MESSI.jpg',
-    },
-    {
-      name: 'lewis_hamilton',
-      followers: '150K',
-      image:
-        'https://s1.elespanol.com/2021/01/22/ciencia/nutricion/553206479_171070440_1024x576.jpg',
-    },
-    {
-      name: 'foodie_gdl',
-      followers: '120K',
-      image:
-        'https://lachicafoodie.wordpress.com/wp-content/uploads/2021/04/3.jpeg?w=1024',
-    },
-  ];
+export class FollowSuggestionsComponent implements OnInit {
+  accounts: Account[] = [];
+  userData = JSON.parse(localStorage.getItem('userData') as string);
+
+  constructor(
+    private httpService: HttpService,
+    private socketService: SocketService,
+  ) {}
+
+  ngOnInit(): void {
+    this.fetchAccounts();
+  }
+
+  fetchAccounts(): void {
+    this.httpService.get<Account[]>('users/suggestions').subscribe({
+      next: (data) => {
+        this.accounts = data.map((account) => {
+          account.profilePic =
+            account.profilePic ||
+            'https://lonche-bucket.s3.us-east-1.amazonaws.com/images/default.png';
+          account.isFollowed = this.userData.following.includes(account._id);
+          return account;
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching accounts:', err);
+      },
+    });
+  }
+
+  toggleFollow(account: Account): void {
+    if (account.isFollowed) {
+      this.unfollowAccount(account);
+    } else {
+      this.followAccount(account);
+    }
+  }
+
+  followAccount(account: Account): void {
+    this.httpService.post(`users/follow/${account._id}`, {}).subscribe({
+      next: (data) => {
+        account.isFollowed = true;
+        account.numFollowers++;
+        this.userData.following.push(account._id);
+        this.userData.numFollowing++;
+        localStorage.setItem('userData', JSON.stringify(this.userData));
+
+        // Emitir evento de follow al backend
+        this.socketService.emitFollowNotification({
+          id_user: this.userData._id,
+          username: this.userData.username,
+          id_receiver: account._id,
+        });
+      },
+      error: (err) => {
+        console.error('Error following account:', err);
+      },
+    });
+  }
+
+  unfollowAccount(account: Account): void {
+    this.httpService.post(`users/unfollow/${account._id}`, {}).subscribe({
+      next: (data) => {
+        account.isFollowed = false;
+        account.numFollowers--;
+        this.userData.following = this.userData.following.filter(
+          (id: string) => id !== account._id,
+        );
+        this.userData.numFollowing--;
+        localStorage.setItem('userData', JSON.stringify(this.userData));
+      },
+      error: (err) => {
+        console.error('Error unfollowing account:', err);
+      },
+    });
+  }
 }
