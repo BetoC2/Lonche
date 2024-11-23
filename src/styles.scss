@@ -1,6 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 // css reset
+@use '@angular/material' as mat;
 @import './app/styles/theme';
+
+:root {
+  @include mat.dialog-overrides((
+    container-color: $dark,
+  ));
+  @include mat.progress-spinner-overrides((
+    active-indicator-color: $main,
+    
+  ));
+
+}
 
 * *::after *::before {
   box-sizing: border-box;

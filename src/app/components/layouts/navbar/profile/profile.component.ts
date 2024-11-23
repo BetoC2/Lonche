@@ -34,9 +34,10 @@ export class ProfileComponent {
 
   openDialog() {
     this.dialog.open(ProfileDataComponent, {
-      width: '500px',
+      width: '600px', 
     });
   }
+  
 
   logout() {
     this.dashboard.logout();

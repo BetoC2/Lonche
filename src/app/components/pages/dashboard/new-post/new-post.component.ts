@@ -24,7 +24,6 @@ export class NewPostComponent implements AfterViewInit {
   id_user = '';
   isPosting = false;
 
-  // Referencia al formulario
   @ViewChild('postForm') postForm!: NgForm;
 
   constructor(
@@ -32,12 +31,11 @@ export class NewPostComponent implements AfterViewInit {
     private fileUploadService: FileUploadService,
     private authService: AuthService,
   ) {
-    // Asignar id_user al inicializar el componente
+
     this.id_user = this.authService.getUserID()?.toString() || '';
   }
 
   ngAfterViewInit() {
-    // Verificar si la referencia al formulario está disponible
     if (!this.postForm) {
       console.error('No se pudo inicializar el formulario');
     }

@@ -63,7 +63,6 @@ export class SignUpComponent {
     );
   }
 
-  // Validador personalizado para contraseñas
   private passwordsMatchValidator(form: AbstractControl) {
     const password = form.get('password')?.value;
     const confirm = form.get('confirm')?.value;
