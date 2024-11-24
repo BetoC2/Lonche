@@ -24,6 +24,7 @@ export class ProfileDataComponent{
   display_name = '';
   display_lastname = '';
   display_bio = '';
+  displayImageUrl = '';
   isLoading = false;
 
   selectedFile: File | null = null; 
@@ -46,13 +47,14 @@ export class ProfileDataComponent{
   getCurrentUserData() {
     const endpoint = 'users/' + this.id_user;
 
-    this.httpService.get<{ name: string; lastname: string; bio: string }>(
+    this.httpService.get<{ name: string; lastname: string; bio: string, profilePic: string }>(
       endpoint
     ).subscribe({
       next: (response) => {
         this.display_name = response.name;
         this.display_lastname = response.lastname;
         this.display_bio = response.bio;
+        this.displayImageUrl = response.profilePic;
 
         this.profileDataForm.setValue({
           name: this.display_name || '',

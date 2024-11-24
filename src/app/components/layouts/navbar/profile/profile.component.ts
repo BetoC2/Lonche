@@ -3,8 +3,8 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { faSolidGear } from '@ng-icons/font-awesome/solid';
 import { faSolidArrowRightToBracket } from '@ng-icons/font-awesome/solid';
 import { DashboardComponent } from '../../../pages/dashboard/dashboard.component';
-import { User } from '../../../../types/user';
 import { AuthService } from '../../../../services/shared/auth.service';
+import { HttpService } from '../../../../services/shared/http-service.service';
 import { MaterialModule } from '@modules/material/material.module';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileDataComponent } from './profile-data/profile-data.component';
@@ -18,18 +18,35 @@ import { ProfileDataComponent } from './profile-data/profile-data.component';
   viewProviders: [provideIcons({ faSolidGear, faSolidArrowRightToBracket })],
 })
 export class ProfileComponent {
-  user: User | null = null;
+  id_user = '';
   userImage = '';
   userName = 'User';
   readonly dialog = inject(MatDialog);
 
   constructor(
     private dashboard: DashboardComponent,
-    authService: AuthService,
+    private authService: AuthService,
+    private httpService: HttpService,
   ) {
-    const user = authService.getUserData();
-    this.userName = user?.username ? user.username : 'User';
-    this.userImage = user?.profilePic ? user.profilePic : '';
+    this.id_user = this.authService.getUserID()?.toString() || '';
+    this.getCurrentUserData();
+  }
+
+  getCurrentUserData() {
+    const endpoint = 'users/' + this.id_user;
+
+    this.httpService.get<{ username: string, profilePic: string }>(
+      endpoint
+    ).subscribe({
+      next: (response) => {
+        this.userName = response.username;
+        this.userImage = response.profilePic;
+
+      },
+      error: (error) => {
+        console.error('Error al obtener los datos del usuario:', error);
+      },
+    });
   }
 
   openDialog() {

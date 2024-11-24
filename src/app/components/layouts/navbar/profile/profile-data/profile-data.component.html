@@ -6,7 +6,7 @@
   <div class="form-container">
     <form [formGroup]="profileDataForm" (submit)="updateUserData()">
       <div class="image-upload">
-        <img class="profile-image" alt="Imagen de perfil" />
+        <img [src]="displayImageUrl" class="profile-image" alt="Imagen de perfil" />
         <input
           type="file"
           #fileInput
