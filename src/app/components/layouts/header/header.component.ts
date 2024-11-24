@@ -63,9 +63,8 @@ export class HeaderComponent implements OnInit {
       data: { notifications: this.notifications },
     });
 
-    // Opcional: Al abrir el modal, podrías marcar todas como leídas
     dialogRef.afterClosed().subscribe(() => {
-      this.unreadCount = 0; // Reinicia el conteo de no leídas
+      this.unreadCount = 0;
     });
   }
 }
