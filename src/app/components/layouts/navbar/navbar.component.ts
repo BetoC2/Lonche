@@ -4,6 +4,7 @@ import { PopularButtonComponent } from './popular-button/popular-button.componen
 import { CategoriesMenuComponent } from './categories-menu/categories-menu.component';
 import { SavedPostsComponent } from './saved-posts/saved-posts.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AdminEditorComponent } from './admin-editor/admin-editor.component';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +15,7 @@ import { ProfileComponent } from './profile/profile.component';
     CategoriesMenuComponent,
     SavedPostsComponent,
     ProfileComponent,
+    AdminEditorComponent
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',

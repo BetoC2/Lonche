@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { cssMoreAlt } from '@ng-icons/css.gg';
+import { MatDialog } from '@angular/material/dialog';
+import { CommentsComponent } from './comments/comments.component';
 import {
   faSolidHeart,
   faSolidHeartCrack,
@@ -24,6 +26,8 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
   ],
 })
 export class PostComponent {
+  readonly dialog = inject(MatDialog);
+
   @Input() title!: string;
   @Input() username!: string;
   @Input() timePosted!: string;
@@ -32,4 +36,10 @@ export class PostComponent {
   @Input() imageUrl!: string;
   @Input() likes!: number;
   @Input() comments!: number;
+
+  openComments() {
+    this.dialog.open(CommentsComponent, {
+      width: '600px', 
+    });
+  }
 }

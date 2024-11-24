@@ -35,9 +35,9 @@
       <span>{{ dislikes }}k</span>
     </div> -->
 
-    <div class="icon-group">
+    <div class="icon-group" (click)="openComments()" (keydown.enter)="openComments()" tabindex="0">
       <ng-icon name="faSolidComment"></ng-icon>
       <span>{{ comments }}</span>
-    </div>
+    </div>    
   </div>
 </div>
