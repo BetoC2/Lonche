@@ -16,7 +16,7 @@ import { NgStyle } from '@angular/common';
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [CommonModule, NgIconComponent],
+  imports: [CommonModule, NgIconComponent, NgStyle],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
   providers: [
@@ -57,7 +57,21 @@ export class PostComponent implements OnInit {
 
   openComments() {
     this.dialog.open(CommentsComponent, {
-      width: '600px',
+      width: '60vw',
+      data: {
+        id_post: this._id,
+        id_city: this.id_city,
+        id_user: this.id_user,
+        username: this.username,
+        title: this.title,
+        content: this.content,
+        categories: this.categories,
+        timePosted: this.timePosted,
+        likes: this.likes,
+        likesUsers: this.likesUsers,
+        numComments: this.numComments,
+        mediaURL: this.mediaURL,
+      },
     });
   }
 

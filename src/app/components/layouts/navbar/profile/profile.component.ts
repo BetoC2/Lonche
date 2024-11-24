@@ -8,6 +8,7 @@ import { HttpService } from '../../../../services/shared/http-service.service';
 import { MaterialModule } from '@modules/material/material.module';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileDataComponent } from './profile-data/profile-data.component';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -35,26 +36,26 @@ export class ProfileComponent {
   getCurrentUserData() {
     const endpoint = 'users/' + this.id_user;
 
-    this.httpService.get<{ username: string, profilePic: string }>(
-      endpoint
-    ).subscribe({
-      next: (response) => {
-        this.userName = response.username;
-        this.userImage = response.profilePic;
-
-      },
-      error: (error) => {
-        console.error('Error al obtener los datos del usuario:', error);
-      },
-    });
+    this.httpService
+      .get<{ username: string; profilePic: string }>(endpoint)
+      .subscribe({
+        next: (response) => {
+          this.userName = response.username;
+          this.userImage = response.profilePic
+            ? response.profilePic
+            : environment.defaultPic;
+        },
+        error: (error) => {
+          console.error('Error al obtener los datos del usuario:', error);
+        },
+      });
   }
 
   openDialog() {
     this.dialog.open(ProfileDataComponent, {
-      width: '600px', 
+      width: '600px',
     });
   }
-  
 
   logout() {
     this.dashboard.logout();

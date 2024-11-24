@@ -39,7 +39,24 @@ export class ForYouComponent implements OnInit {
                 { addSuffix: true },
               )
             : 'Fecha desconocida',
+          username: '',
         }));
+
+        this.posts.forEach((post) => {
+          this.httpService
+            .get<{ username: string }>(`users/${post.id_user}`)
+            .subscribe({
+              next: (userData) => {
+                post.username = userData.username;
+              },
+              error: (err) => {
+                console.error(
+                  `Error al obtener el username del usuario ${post.id_user}:`,
+                  err,
+                );
+              },
+            });
+        });
       },
       error: (err) => {
         this.error = 'Error al cargar los posts.';
