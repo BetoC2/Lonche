@@ -7,7 +7,6 @@ import { formatDistanceToNow, parseISO } from 'date-fns';
 
 interface PostWithDetails extends Post {
   timePosted: string;
-  username: string; // Nuevo campo para almacenar el nombre de usuario
 }
 
 @Component({
@@ -18,7 +17,7 @@ interface PostWithDetails extends Post {
   styleUrls: ['./for-you.component.scss'],
 })
 export class ForYouComponent implements OnInit {
-  postsWithDetails: PostWithDetails[] = [];
+  posts: PostWithDetails[] = [];
   error: string | null = null;
 
   constructor(private httpService: HttpService) {}
@@ -30,7 +29,7 @@ export class ForYouComponent implements OnInit {
   fetchPosts(): void {
     this.httpService.get<Post[]>('posts', { exclude: true }).subscribe({
       next: (data) => {
-        this.postsWithDetails = data.map((post) => ({
+        this.posts = data.map((post) => ({
           ...post,
           timePosted: post.creationDate
             ? formatDistanceToNow(
@@ -40,24 +39,7 @@ export class ForYouComponent implements OnInit {
                 { addSuffix: true },
               )
             : 'Fecha desconocida',
-          username: '',
         }));
-
-        this.postsWithDetails.forEach((post) => {
-          this.httpService
-            .get<{ username: string }>(`users/${post.id_user}`)
-            .subscribe({
-              next: (userData) => {
-                post.username = userData.username;
-              },
-              error: (err) => {
-                console.error(
-                  `Error al obtener el username del usuario ${post.id_user}:`,
-                  err,
-                );
-              },
-            });
-        });
       },
       error: (err) => {
         this.error = 'Error al cargar los posts.';

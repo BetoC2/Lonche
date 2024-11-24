@@ -14,7 +14,11 @@
         }"
         (click)="toggleFollow(account)"
       >
-        {{ account.isFollowed ? "unfollow" : "follow" }}
+        @if (account.isFollowed) {
+          <ng-icon name="faSolidUserMinus" />
+        } @else {
+          <ng-icon name="faSolidUserPlus" />
+        }
       </button>
     </div>
   }

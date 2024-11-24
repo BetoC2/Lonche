@@ -90,8 +90,8 @@ h1 {
     cursor: pointer;
 
     ng-icon {
-      color: t.$dark-gray;
       font-size: 18px;
+      color: t.$dark-gray;
     }
 
     span {
@@ -99,4 +99,8 @@ h1 {
       color: t.$dark-gray;
     }
   }
+}
+
+.pink {
+    color: t.$main;
 }

@@ -9,7 +9,7 @@ export class SocketService {
   private socket: Socket;
 
   constructor() {
-    this.socket = io(environment.apiUrl); // Cambia esto por tu URL del backend
+    this.socket = io(environment.apiUrl);
   }
 
   joinRoom(userId: string): void {
@@ -18,6 +18,10 @@ export class SocketService {
 
   emitFollowNotification(data: any): void {
     this.socket.emit('sendFollowNotification', data);
+  }
+
+  emitPostNotification(data: any): void {
+    this.socket.emit('sendPostNotification', data);
   }
 
   onNotification(callback: (notification: any) => void): void {

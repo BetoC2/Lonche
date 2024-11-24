@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { cssMoreAlt } from '@ng-icons/css.gg';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,6 +9,9 @@ import {
   faSolidComment,
 } from '@ng-icons/font-awesome/solid';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { SocketService } from 'app/services/shared/socket.service';
+import { HttpService } from 'app/services/shared/http-service.service';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-post',
@@ -25,21 +28,76 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
     }),
   ],
 })
-export class PostComponent {
+export class PostComponent implements OnInit {
   readonly dialog = inject(MatDialog);
+  userData = JSON.parse(localStorage.getItem('userData') as string);
+  isLiked: boolean = false;
 
-  @Input() title!: string;
+  @Input() _id!: string;
+  @Input() id_city!: string;
+  @Input() id_user!: string;
   @Input() username!: string;
+  @Input() title!: string;
+  @Input() content!: string;
+  @Input() categories!: string[];
   @Input() timePosted!: string;
-  @Input() category!: string;
-  @Input() text!: string;
-  @Input() imageUrl!: string;
   @Input() likes!: number;
-  @Input() comments!: number;
+  @Input() likesUsers!: string[];
+  @Input() numComments!: number;
+  @Input() mediaURL!: string;
+
+  constructor(
+    private socketService: SocketService,
+    private httpService: HttpService,
+  ) {}
+
+  ngOnInit() {
+    this.isLiked = this.likesUsers.includes(this.userData.username);
+  }
 
   openComments() {
     this.dialog.open(CommentsComponent, {
-      width: '600px', 
+      width: '600px',
+    });
+  }
+
+  toggleLike() {
+    if (this.isLiked) {
+      this.unlikePost();
+    } else {
+      this.likePost();
+    }
+  }
+
+  likePost() {
+    this.httpService.post(`like/${this._id}`, {}).subscribe({
+      next: (data) => {
+        this.isLiked = true;
+        this.likes++;
+
+        this.socketService.emitPostNotification({
+          id_user: this.userData._id,
+          id_post: this._id,
+          id_receiver: this.id_user,
+          username: this.userData.username,
+          actionType: 'like',
+        });
+      },
+      error: (err) => {
+        console.error('Error liking post:', err);
+      },
+    });
+  }
+
+  unlikePost() {
+    this.httpService.post(`unlike/${this._id}`, {}).subscribe({
+      next: (data) => {
+        this.isLiked = false;
+        this.likes--;
+      },
+      error: (err) => {
+        console.error('Error unliking post:', err);
+      },
     });
   }
 }

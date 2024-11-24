@@ -5,10 +5,10 @@ export interface Post {
   username: string;
   title: string;
   content: string;
-  category: string;
+  categories: string[];
   creationDate?: Date;
   likes: number;
-  likesIds: string[];
+  likesUsers: string[];
   numComments: number;
   mediaURL?: string;
 }

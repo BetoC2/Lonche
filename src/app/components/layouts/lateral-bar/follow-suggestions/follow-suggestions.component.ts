@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'app/services/shared/http-service.service';
 import { NgClass } from '@angular/common';
 import { SocketService } from 'app/services/shared/socket.service';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  faSolidUserPlus,
+  faSolidUserMinus,
+} from '@ng-icons/font-awesome/solid';
 
 interface Account {
   _id: string;
@@ -18,9 +23,10 @@ interface Account {
 @Component({
   selector: 'app-follow-suggestions',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, NgIcon],
   templateUrl: './follow-suggestions.component.html',
   styleUrl: './follow-suggestions.component.scss',
+  viewProviders: [provideIcons({ faSolidUserPlus, faSolidUserMinus })],
 })
 export class FollowSuggestionsComponent implements OnInit {
   accounts: Account[] = [];

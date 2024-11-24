@@ -3,17 +3,21 @@
     {{ error }}
   </div>
 
-  <ng-container *ngIf="postsWithDetails.length > 0; else noPosts">
+  <ng-container *ngIf="posts.length > 0; else noPosts">
     <app-post
-      *ngFor="let post of postsWithDetails"
-      [title]="post.title"
+      *ngFor="let post of posts"
+      [_id]="post._id"
+      [id_city]="post.id_city"
+      [id_user]="post.id_user"
       [username]="post.username"
+      [title]="post.title"
+      [content]="post.content"
+      [categories]="post.categories"
       [timePosted]="post.timePosted"
-      [category]="post.category"
-      [text]="post.content"
-      [imageUrl]="post.mediaURL || ''"
       [likes]="post.likes"
-      [comments]="post.numComments"
+      [likesUsers]="post.likesUsers"
+      [numComments]="post.numComments"
+      [mediaURL]="post.mediaURL ? post.mediaURL : ''"
     ></app-post>
   </ng-container>
 
