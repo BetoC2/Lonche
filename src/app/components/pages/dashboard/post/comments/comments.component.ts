@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpService } from 'app/services/shared/http-service.service';
 import { Comment } from 'app/types/comment';
@@ -26,6 +26,8 @@ export class CommentsComponent implements OnInit {
   comments: CommentDetails[] = [];
   newCommentContent = '';
   userData = JSON.parse(localStorage.getItem('userData') as string);
+
+  @Output() commentAdded = new EventEmitter<void>();
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -74,6 +76,7 @@ export class CommentsComponent implements OnInit {
               : environment.defaultPic,
           });
           this.newCommentContent = '';
+          this.commentAdded.emit();
 
           this.socketService.emitPostNotification({
             id_user: this.userData._id,

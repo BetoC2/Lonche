@@ -11,7 +11,9 @@
       tabindex="0"
     >
       <ng-icon class="google-icon" name="faSolidBell"></ng-icon>
-      <span class="notification-count">9</span>
+      @if (unreadCount > 0) {
+        <span class="notification-count">{{ unreadCount }}</span>
+      }
     </div>
   </div>
 </header>

@@ -56,7 +56,7 @@ export class PostComponent implements OnInit {
   }
 
   openComments() {
-    this.dialog.open(CommentsComponent, {
+    const dialogRef = this.dialog.open(CommentsComponent, {
       width: '60vw',
       data: {
         id_post: this._id,
@@ -72,6 +72,10 @@ export class PostComponent implements OnInit {
         numComments: this.numComments,
         mediaURL: this.mediaURL,
       },
+    });
+
+    dialogRef.componentInstance.commentAdded.subscribe(() => {
+      this.numComments++;
     });
   }
 
