@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
 
   openDialog() {
     const dialogRef = this.dialog.open(NotificationsComponent, {
-      width: '500px',
+      width: '50vw',
       data: { notifications: this.notifications },
     });
 

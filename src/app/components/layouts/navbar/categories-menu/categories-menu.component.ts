@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faSolidAngleDown } from '@ng-icons/font-awesome/solid';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-
-interface Category {
-  name: string;
-  backgroundColor: string;
-}
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
+import { Category } from 'app/types/category';
 
 @Component({
   selector: 'app-categories-menu',
@@ -15,16 +13,31 @@ interface Category {
   styleUrl: './categories-menu.component.scss',
   viewProviders: [provideIcons({ faSolidAngleDown })],
 })
-export class CategoriesMenuComponent {
-  categories: Category[] = [
-    { name: 'Cultura', backgroundColor: '#ff468d' },
-    { name: 'Colectivo', backgroundColor: '#7d46ff' },
-    { name: 'Deporte', backgroundColor: '#08a86d' },
-  ];
+export class CategoriesMenuComponent implements OnInit {
+  categories: Category[] = [];
 
   isCollapsed = true;
 
+  constructor(private httpCliente: HttpClient) {}
+
+  ngOnInit(): void {
+    this.fetchCategories();
+  }
+
   toggleDropdown() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  fetchCategories() {
+    this.httpCliente
+      .get<Category[]>(`${environment.apiUrl}categories`)
+      .subscribe({
+        next: (categories) => {
+          this.categories = categories;
+        },
+        error: (error) => {
+          console.error('Error fetching categories', error);
+        },
+      });
   }
 }

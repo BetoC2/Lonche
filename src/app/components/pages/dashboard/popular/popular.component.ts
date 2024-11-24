@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { PostsListComponent } from '../posts-list/posts-list.component';
 
 @Component({
   selector: 'app-popular',
   standalone: true,
-  imports: [CommonModule],
+  imports: [PostsListComponent],
   templateUrl: './popular.component.html',
   styleUrl: './popular.component.scss',
 })
