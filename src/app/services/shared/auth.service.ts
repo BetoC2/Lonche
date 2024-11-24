@@ -46,7 +46,6 @@ export class AuthService {
     const userData = localStorage.getItem('userData');
     return userData ? JSON.parse(userData) : null;
   }
-
   // Setters
   setToken(token: string): void {
     try {
@@ -73,6 +72,10 @@ export class AuthService {
 
   isLogged(): boolean {
     return !!this.getToken();
+  }
+
+  isAdmin(): boolean {
+    return this.user?.role === 'admin';
   }
 
   logout(): void {

@@ -9,6 +9,8 @@ import { SavedComponent } from '@pages/dashboard/saved/saved.component';
 import { NotFoundComponent } from '@components/errors/not-found/not-found.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PreventExitGuard } from './guards/prevent-exit.guard';
+import { AdminGuard } from '../app/guards/admin.guard';
+import { AdminComponent } from '@components/pages/dashboard/admin/admin.component';
 
 export const routes: Routes = [
   {
@@ -34,6 +36,7 @@ export const routes: Routes = [
       { path: '', component: ForYouComponent },
       { path: 'popular', component: PopularComponent },
       { path: 'saved', component: SavedComponent },
+      { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
     ],
   },
   {

@@ -2,7 +2,9 @@
 <main class="container">
   <app-navbar></app-navbar>
   <div class="content">
-    <app-new-post></app-new-post>
+    @if (!isAdminRoute){
+      <app-new-post></app-new-post>
+    }
     <router-outlet></router-outlet>
   </div>
   <app-lateral-bar></app-lateral-bar>

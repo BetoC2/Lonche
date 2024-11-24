@@ -1,23 +1,42 @@
 import { Component } from '@angular/core';
-import { ForYouButtonComponent } from './for-you-button/for-you-button.component';
-import { PopularButtonComponent } from './popular-button/popular-button.component';
 import { CategoriesMenuComponent } from './categories-menu/categories-menu.component';
-import { SavedPostsComponent } from './saved-posts/saved-posts.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AdminEditorComponent } from './admin-editor/admin-editor.component';
+import { AuthService } from 'app/services/shared/auth.service';
+import { User } from '../../../types/user';
+import { RouterLink, RouterOutlet } from '@angular/router';
+
+// Icons
+import { faPenToSquare } from '@ng-icons/font-awesome/regular';
+import { faSolidStar } from '@ng-icons/font-awesome/solid';
+import { faSolidFire } from '@ng-icons/font-awesome/solid';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { faSolidBookmark } from '@ng-icons/font-awesome/solid';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [
-    ForYouButtonComponent,
-    PopularButtonComponent,
     CategoriesMenuComponent,
-    SavedPostsComponent,
     ProfileComponent,
-    AdminEditorComponent
+    RouterLink, RouterOutlet,
+    NgIconComponent
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
+  providers: [
+    provideIcons({
+      faPenToSquare, faSolidStar, faSolidFire, faSolidBookmark
+    }),
+  ],
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  user: User | null = null;
+
+  constructor( private authService: AuthService ) {
+    this.authService.observableUserData.subscribe((user) => {
+      this.user = user;
+      console.log('user', user);
+    });
+  }
+
+}

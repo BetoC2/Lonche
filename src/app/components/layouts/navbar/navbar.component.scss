@@ -1,4 +1,16 @@
 @use '../../../styles/theme' as t;
+@use '../../../styles/navbar_buttons' as btn;
+
+button {
+  @include btn.button-common;
+  margin-top: 10px;
+
+  ng-icon {
+    margin: 0 0 2px 10px;
+  }
+
+  @include btn.button-hover;
+}
 
 nav {
   height: 90dvh;
