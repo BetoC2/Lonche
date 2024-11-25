@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { HeaderComponent } from '@layouts/header/header.component';
@@ -13,6 +14,7 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [
     RouterOutlet,
+    CommonModule,
     HeaderComponent,
     NavbarComponent,
     LateralBarComponent,

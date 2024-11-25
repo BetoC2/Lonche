@@ -11,6 +11,10 @@
     active-indicator-color: $main,
     
   ));
+  @include mat.table-overrides((
+    background-color: $dark,
+    
+  ));
 
 }
 

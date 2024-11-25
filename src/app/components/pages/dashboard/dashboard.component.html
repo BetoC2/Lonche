@@ -1,7 +1,7 @@
 <app-header></app-header>
 <main class="container">
   <app-navbar></app-navbar>
-  <div class="content">
+  <div [ngClass]="isAdminRoute ? 'admin-content' : 'content'">
     @if (!isAdminRoute){
       <app-new-post></app-new-post>
     }
