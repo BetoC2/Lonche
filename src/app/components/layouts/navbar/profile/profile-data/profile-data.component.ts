@@ -67,7 +67,6 @@ export class ProfileDataComponent{
       },
     });
   }
-  // <mat-spinner></mat-spinner>
 
   updateUserData() {
     if (this.profileDataForm.valid) {
