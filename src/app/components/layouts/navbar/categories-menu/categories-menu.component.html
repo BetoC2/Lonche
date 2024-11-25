@@ -11,7 +11,7 @@
     </span>
   </div>
 
-  @if (isCollapsed) {
+  <div class="categories-content" [class.expanded]="!isCollapsed">
     <div class="search-container">
       <input
         type="text"
@@ -22,9 +22,11 @@
       />
     </div>
     <div class="category-buttons">
-      @for (category of visibleCategories; track category.name) {
+      @for (category of visibleCategories; track $index) {
         <button
           class="category-button"
+          [class.fade-in]="!isCollapsed"
+          [class.fade-out]="isCollapsed"
           [style.background-color]="'#' + category.color"
         >
           {{ category.name | titlecase }}
@@ -39,5 +41,5 @@
     >
       {{ isExpanded ? "Ver menos" : "Ver más" }}
     </div>
-  }
+  </div>
 </div>

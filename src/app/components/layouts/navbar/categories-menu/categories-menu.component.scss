@@ -89,3 +89,31 @@
     color: t.$dark-gray;
   }
 }
+
+.categories-content {
+  max-height: 0; // Estado colapsado
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+
+  &.expanded {
+    max-height: 40vh;
+    opacity: 1;
+  }
+}
+
+.category-button {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  &.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}

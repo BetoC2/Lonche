@@ -18,25 +18,27 @@ import { faSolidBookmark } from '@ng-icons/font-awesome/solid';
   imports: [
     CategoriesMenuComponent,
     ProfileComponent,
-    RouterLink, RouterOutlet,
-    NgIconComponent
+    RouterLink,
+    NgIconComponent,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
   providers: [
     provideIcons({
-      faPenToSquare, faSolidStar, faSolidFire, faSolidBookmark
+      faPenToSquare,
+      faSolidStar,
+      faSolidFire,
+      faSolidBookmark,
     }),
   ],
 })
 export class NavbarComponent {
   user: User | null = null;
 
-  constructor( private authService: AuthService ) {
+  constructor(private authService: AuthService) {
     this.authService.observableUserData.subscribe((user) => {
       this.user = user;
       console.log('user', user);
     });
   }
-
 }
