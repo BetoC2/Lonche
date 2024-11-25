@@ -7,14 +7,16 @@
     />
     <span class="profile-name">{{ userName }}</span>
   </div>
-  <ng-icon
-    name="faSolidGear"
-    class="settings-icon"
-    (click)="openDialog()"
-  ></ng-icon>
-  <ng-icon
-    name="faSolidArrowRightToBracket"
-    class="settings-icon"
-    (click)="logout()"
-  ></ng-icon>
+  <div class="icon-group">
+    <ng-icon
+      name="faSolidGear"
+      class="settings-icon"
+      (click)="openDialog()"
+    ></ng-icon>
+    <ng-icon
+      name="faSolidArrowRightToBracket"
+      class="settings-icon"
+      (click)="logout()"
+    ></ng-icon>
+  </div>
 </div>

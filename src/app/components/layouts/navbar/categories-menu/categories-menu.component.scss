@@ -39,26 +39,30 @@
     }
   }
 
-  .search-container,
-  .category-buttons {
-    padding: 0 10px;
-  }
-
   .search-container {
-    margin: 10px 0;
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .search-input {
       width: 100%;
+      max-width: 400px;
       padding: 10px;
       border-radius: 15px;
       border: none;
       background-color: t.$active-page;
       color: white;
       font-size: large;
+
+      &::placeholder {
+        color: t.$dark-gray; 
+      }
     }
   }
 
   .category-buttons {
+    margin: 0 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;

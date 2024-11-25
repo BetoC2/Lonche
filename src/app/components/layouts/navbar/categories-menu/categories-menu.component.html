@@ -10,20 +10,34 @@
       <ng-icon name="faSolidAngleDown"></ng-icon>
     </span>
   </div>
-  @if (!isCollapsed) {
+
+  @if (isCollapsed) {
     <div class="search-container">
-      <input type="text" placeholder="Buscar categoría" class="search-input" />
+      <input
+        type="text"
+        placeholder="Buscar categoría"
+        class="search-input"
+        [(ngModel)]="searchQuery"
+        (input)="onSearch(searchQuery)"
+      />
     </div>
     <div class="category-buttons">
-      @for (category of categories; track $index) {
+      @for (category of visibleCategories; track category.name) {
         <button
           class="category-button"
           [style.background-color]="'#' + category.color"
         >
-          {{ category.name }}
+          {{ category.name | titlecase }}
         </button>
       }
     </div>
-    <div class="see-more">Ver más</div>
+    <div
+      class="see-more"
+      (click)="toggleViewMore()"
+      (keydown.enter)="toggleViewMore()"
+      tabindex="0"
+    >
+      {{ isExpanded ? "Ver menos" : "Ver más" }}
+    </div>
   }
 </div>

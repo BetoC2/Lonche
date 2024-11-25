@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -6,6 +6,8 @@ import { faImages } from '@ng-icons/font-awesome/regular';
 import { HttpService } from '../../../../services/shared/http-service.service';
 import { AuthService } from '../../../../services/shared/auth.service';
 import { FileUploadService } from '../../../../services/shared/file-upload.service';
+import { Category } from 'app/types/category';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-new-post',
@@ -15,7 +17,7 @@ import { FileUploadService } from '../../../../services/shared/file-upload.servi
   styleUrls: ['./new-post.component.scss'],
   providers: [provideIcons({ faImages })],
 })
-export class NewPostComponent implements AfterViewInit {
+export class NewPostComponent implements AfterViewInit, OnInit {
   postTitle = '';
   postContent = '';
   selectedFile: File | null = null;
@@ -23,6 +25,7 @@ export class NewPostComponent implements AfterViewInit {
   id_city = '670721b321b2d215baee6a52'; // ID de ciudad
   id_user = '';
   isPosting = false;
+  categories: Category[] = [];
 
   @ViewChild('postForm') postForm!: NgForm;
 
@@ -31,9 +34,10 @@ export class NewPostComponent implements AfterViewInit {
     private fileUploadService: FileUploadService,
     private authService: AuthService,
   ) {
-
     this.id_user = this.authService.getUserID()?.toString() || '';
   }
+
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     if (!this.postForm) {
@@ -121,5 +125,16 @@ export class NewPostComponent implements AfterViewInit {
     if (this.postForm) {
       this.postForm.resetForm();
     }
+  }
+
+  fetchCategories() {
+    this.httpService.get<Category[]>('categories').subscribe({
+      next: (categories) => {
+        this.categories = categories;
+      },
+      error: (error) => {
+        console.error('Error fetching categories', error);
+      },
+    });
   }
 }
