@@ -47,26 +47,20 @@ export class LoginService {
   }
 
   loginWithGoogle() {
-    return this.httpService.get<{ token?: string; user?: User }>('google').pipe(
+    return this.httpService.get<User>('profile').pipe(
       map((response) => {
-        if (response.token) {
-          this.authService.setToken(response.token);
+        const userData = response;
+        const userID = userData._id || '';
 
-          const userData =
-            response.user && '_doc' in response.user
-              ? (response.user._doc as User)
-              : response.user;
-          const userID = (userData as User)?._id || '';
+        this.authService.setUserID(userID);
+        const userDataCopy = { ...userData } as User;
+        this.authService.setUserData(userDataCopy);
 
-          this.authService.setUserID(userID);
-          const userDataCopy = { ...userData } as User;
-          this.authService.setUserData(userDataCopy);
-        }
         return response;
       }),
       catchError((error) => {
         console.error('Error en el login con Google: ', error);
-        return of({ token: undefined, user: undefined });
+        return of();
       }),
     );
   }
