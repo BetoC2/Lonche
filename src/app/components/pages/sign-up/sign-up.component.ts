@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LandingHeaderComponent } from '@components/layouts/landing-header/landing-header.component';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -34,6 +34,10 @@ import {
 export class SignUpComponent {
   signupForm: FormGroup;
 
+  // Lista de opciones válidas
+  validCities = ['Ciudad de México', 'Guadalajara, MX'];
+
+
   // Mapa de ciudades con sus IDs (hardcodeado)
   citiesMap = {
     'Ciudad de México': '67071eb30079259fec39295b',
@@ -62,7 +66,7 @@ export class SignUpComponent {
       },
     );
   }
-
+  
   private passwordsMatchValidator(form: AbstractControl) {
     const password = form.get('password')?.value;
     const confirm = form.get('confirm')?.value;

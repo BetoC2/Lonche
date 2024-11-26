@@ -55,14 +55,17 @@ export class HttpService {
   post<Req, Res>(
     endpoint: string,
     body: Req,
-    options?: { headers?: HttpHeaders; withCredentials?: boolean },
+    options?: { headers?: HttpHeaders; withCredentials?: boolean; auth?: boolean },
   ): Observable<Res> {
-    const headers = options?.headers || this.getHeaders();
-
+    const headers = options?.auth === false
+      ? this.getHeaders().delete('Authorization')
+      : this.getHeaders();
+  
     return this.httpClient
       .post<Res>(`${this.url}${endpoint}`, body, { ...options, headers })
       .pipe(catchError(this.handleError));
   }
+  
 
   put<Req, Res>(endpoint: string, data: Req | FormData): Observable<Res> {
     let headers = this.getHeaders();

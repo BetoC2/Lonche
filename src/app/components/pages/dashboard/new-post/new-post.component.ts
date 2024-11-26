@@ -54,7 +54,7 @@ export class NewPostComponent implements AfterViewInit, OnInit {
         id_user: this.id_user,
         title: this.postTitle.trim(),
         content: this.postContent.trim(),
-        category: 'cultura',
+        categories: ['cultura'],
       };
 
       console.log('Payload enviado:', postPayload);
