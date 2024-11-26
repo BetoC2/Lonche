@@ -72,4 +72,20 @@ export class LoginComponent {
       },
     });
   }
+
+  googleLogin() {
+    this.loginService.loginWithGoogle().subscribe({
+      next: (response: { token?: string; user?: User }) => {
+        if (response.token) {
+          this.router.navigate(['/dashboard']);
+        } else {
+          alert('Hubo un error al iniciar sesión con Google.');
+        }
+      },
+      error: (err) => {
+        console.error('Error en el login con Google: ', err);
+        alert('Hubo un error al iniciar sesión con Google. Intenta más tarde.');
+      },
+    });
+  }
 }
