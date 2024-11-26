@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostComponent } from '../post/post.component';
 import { HttpService } from '../../../../services/shared/http-service.service';
@@ -16,7 +22,7 @@ interface PostWithDetails extends Post {
   templateUrl: './posts-list.component.html',
   styleUrl: './posts-list.component.scss',
 })
-export class PostsListComponent {
+export class PostsListComponent implements OnInit, OnChanges {
   @Input() apiUrl!: string;
   @Input() apiParams?: Record<string, any>;
   posts: PostWithDetails[] = [];
@@ -25,6 +31,10 @@ export class PostsListComponent {
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
+    this.fetchPosts();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.fetchPosts();
   }
 

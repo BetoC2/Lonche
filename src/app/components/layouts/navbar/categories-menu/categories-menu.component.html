@@ -28,6 +28,7 @@
           [class.fade-in]="!isCollapsed"
           [class.fade-out]="isCollapsed"
           [style.background-color]="'#' + category.color"
+          (click)="navigateToCategory(category.name)"
         >
           {{ category.name | titlecase }}
         </button>
