@@ -19,10 +19,11 @@ export class HttpService {
 
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      auth: `${this.authService.getToken() || ''}`,
+      Authorization: `Bearer ${this.authService.getToken() || ''}`,
       'Content-Type': 'application/json',
     });
   }
+  
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.error('HTTP Error:', error);
