@@ -8,11 +8,22 @@ import { HttpService } from 'app/services/shared/http-service.service';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { faSolidSquareXmark } from '@ng-icons/font-awesome/solid';
 
+// form
+
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
+
 
 @Component({
   selector: 'app-cities-admin',
   standalone: true,
-  imports: [MatTableModule, NgIconComponent],
+  imports: [MatTableModule, NgIconComponent, FormsModule, ReactiveFormsModule,],
   templateUrl: './cities-admin.component.html',
   styleUrl: './cities-admin.component.scss',
   providers: [
@@ -22,11 +33,21 @@ import { faSolidSquareXmark } from '@ng-icons/font-awesome/solid';
   ],
 })
 export class CitiesAdminComponent {
-  displayedColumns: string[] = ['id', 'city', 'region', 'country', 'delete'];
+  displayedColumns: string[] = ['id', 'city', 'region', 'country', 'language',  'delete'];
   dataSource: City[] = [];
+  cityForm: FormGroup;
 
-  constructor(private httpService: HttpService) {
+  constructor( formBuilder: FormBuilder, private authService: AuthService, private httpService: HttpService) {
     this.getCities();
+
+    this.cityForm = formBuilder.group(
+      {
+        name: ['', Validators.required],
+        region: ['', Validators.required],
+        country: ['', Validators.required],
+        language: ['', Validators.required]
+      }
+    );
 
   }
 
@@ -46,11 +67,30 @@ export class CitiesAdminComponent {
     });
   }
 
+  createCity(): void {
+    const endpoint = 'cities/';
+    const city = this.cityForm.value;
+    this.httpService.post<City, any>(endpoint, city).subscribe({
+      next: (response) => {
+        console.log('Ciudad creada con éxito:', response);
+        this.getCities();
+      },
+      error: (error) => {
+        console.error('Error al crear la ciudad:', error);
+      },
+      complete: () => {
+        console.log('Operación de creación completada.');
+      }
+    });
+
+  }
+
   deleteCity(city_id: string): void {
     const endpoint = `cities/${city_id}`;
     this.httpService.delete<City[]>(endpoint).subscribe({
       next: (response) => {
         console.log('Ciudad eliminada con éxito:', response);
+        this.getCities();
       },
       error: (error) => {
         console.error('Error al eliminar la ciudad:', error);
