@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { faSolidAngleDown } from '@ng-icons/font-awesome/solid';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'environments/environment';
 import { Category } from 'app/types/category';
 import { FormsModule } from '@angular/forms';
 import { TitleCasePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { TagService } from 'app/services/shared/tag.service';
+import { CategoryService } from 'app/services/shared/category.service';
 
 @Component({
   selector: 'app-categories-menu',
@@ -17,7 +17,7 @@ import { TagService } from 'app/services/shared/tag.service';
   styleUrls: ['./categories-menu.component.scss'],
   viewProviders: [provideIcons({ faSolidAngleDown })],
 })
-export class CategoriesMenuComponent implements OnInit {
+export class CategoriesMenuComponent {
   categories: Category[] = [];
   filteredCategories: Category[] = [];
   visibleCategories: Category[] = [];
@@ -29,29 +29,19 @@ export class CategoriesMenuComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     private tagService: TagService,
-  ) {}
-
-  ngOnInit(): void {
-    this.fetchCategories();
+    private categoryService: CategoryService,
+  ) {
+    this.categoryService.categories.subscribe({
+      next: (categories) => {
+        this.categories = categories;
+        this.filteredCategories = categories;
+        this.updateVisibleCategories();
+      },
+    });
   }
 
   toggleDropdown() {
     this.isCollapsed = !this.isCollapsed;
-  }
-
-  fetchCategories() {
-    this.httpClient
-      .get<Category[]>(`${environment.apiUrl}categories`)
-      .subscribe({
-        next: (categories) => {
-          this.categories = categories;
-          this.filteredCategories = categories;
-          this.updateVisibleCategories();
-        },
-        error: (error) => {
-          console.error('Error fetching categories', error);
-        },
-      });
   }
 
   updateVisibleCategories() {

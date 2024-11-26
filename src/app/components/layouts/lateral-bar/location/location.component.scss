@@ -18,30 +18,9 @@
   }
 
   .search-bar {
-    background-color: t.$sec-gray;
-    border-radius: 15px;
     display: flex;
     align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
     width: 95%;
-
-    ng-icon {
-      color: t.$dark-gray;
-      margin-right: 10px;
-    }
-
-    input {
-      background: transparent;
-      border: none;
-      outline: none;
-      flex: 1;
-      color: white;
-
-      &::placeholder {
-        color: t.$dark-gray;
-      }
-    }
   }
 
   .search-button {

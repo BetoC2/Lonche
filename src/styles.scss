@@ -13,9 +13,15 @@
   ));
   @include mat.table-overrides((
     background-color: $dark,
-    
   ));
 
+  @include mat.form-field-overrides((
+    active-indicator-color: $sec-gray,
+    container-color: $sec-gray,
+    focus-label-text-color: $light,
+    focus-outline-color : $main,
+  ));
+  
 }
 
 * *::after *::before {

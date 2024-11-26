@@ -8,6 +8,7 @@ import { AuthService } from '../../../../services/shared/auth.service';
 import { FileUploadService } from '../../../../services/shared/file-upload.service';
 import { Category } from 'app/types/category';
 import { environment } from 'environments/environment';
+import { CityService } from 'app/services/shared/city.service';
 
 @Component({
   selector: 'app-new-post',
@@ -22,7 +23,7 @@ export class NewPostComponent implements AfterViewInit, OnInit {
   postContent = '';
   selectedFile: File | null = null;
   selectedFileName: string | null = null;
-  id_city = '670721b321b2d215baee6a52'; // ID de ciudad
+  id_city = '';
   id_user = '';
   isPosting = false;
   categories: Category[] = [];
@@ -33,8 +34,14 @@ export class NewPostComponent implements AfterViewInit, OnInit {
     private httpService: HttpService,
     private fileUploadService: FileUploadService,
     private authService: AuthService,
+    private cityService: CityService,
   ) {
     this.id_user = this.authService.getUserID()?.toString() || '';
+    this.cityService.current_city.subscribe({
+      next: (cityId) => {
+        this.id_city = cityId;
+      },
+    });
   }
 
   ngOnInit(): void {}
@@ -54,7 +61,7 @@ export class NewPostComponent implements AfterViewInit, OnInit {
         id_user: this.id_user,
         title: this.postTitle.trim(),
         content: this.postContent.trim(),
-        categories: ['cultura'],
+        categories: ['cultura', 'comida'],
       };
 
       console.log('Payload enviado:', postPayload);

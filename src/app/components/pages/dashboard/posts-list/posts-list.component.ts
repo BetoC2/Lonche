@@ -10,6 +10,7 @@ import { PostComponent } from '../post/post.component';
 import { HttpService } from '../../../../services/shared/http-service.service';
 import { Post } from '../../../../types/post';
 import { formatDistanceToNow, parseISO } from 'date-fns';
+import { CityService } from 'app/services/shared/city.service';
 
 interface PostWithDetails extends Post {
   timePosted: string;
@@ -27,8 +28,21 @@ export class PostsListComponent implements OnInit, OnChanges {
   @Input() apiParams?: Record<string, any>;
   posts: PostWithDetails[] = [];
   error: string | null = null;
+  currentCityId: string = '';
 
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private cityService: CityService,
+  ) {
+    this.cityService.current_city.subscribe({
+      next: (cityId) => {
+        this.currentCityId = cityId;
+        if (this.apiUrl) {
+          this.fetchPosts();
+        }
+      },
+    });
+  }
 
   ngOnInit(): void {
     this.fetchPosts();
@@ -39,6 +53,10 @@ export class PostsListComponent implements OnInit, OnChanges {
   }
 
   fetchPosts(): void {
+    if (this.currentCityId) {
+      this.apiParams = { ...this.apiParams, city: this.currentCityId };
+    }
+
     this.httpService.get<Post[]>(this.apiUrl, this.apiParams || {}).subscribe({
       next: (data) => {
         this.posts = data.map((post) => ({

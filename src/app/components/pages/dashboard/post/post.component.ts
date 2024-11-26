@@ -12,6 +12,8 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { SocketService } from 'app/services/shared/socket.service';
 import { HttpService } from 'app/services/shared/http-service.service';
 import { NgStyle } from '@angular/common';
+import { CategoryService } from 'app/services/shared/category.service';
+import { Category } from 'app/types/category';
 
 @Component({
   selector: 'app-post',
@@ -32,6 +34,8 @@ export class PostComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   userData = JSON.parse(localStorage.getItem('userData') as string);
   isLiked: boolean = false;
+  allCategories: Category[] = [];
+  filteredCategories: Category[] = [];
 
   @Input() _id!: string;
   @Input() id_city!: string;
@@ -49,10 +53,21 @@ export class PostComponent implements OnInit {
   constructor(
     private socketService: SocketService,
     private httpService: HttpService,
-  ) {}
+    private categoryService: CategoryService,
+  ) {
+    this.categoryService.categories.subscribe({
+      next: (categories) => {
+        this.allCategories = categories;
+      },
+    });
+  }
 
   ngOnInit() {
     this.isLiked = this.likesUsers.includes(this.userData.username);
+
+    this.filteredCategories = this.allCategories.filter((category) =>
+      this.categories.includes(category.name),
+    );
   }
 
   openComments() {

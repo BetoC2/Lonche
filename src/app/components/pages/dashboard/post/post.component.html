@@ -11,9 +11,11 @@
     <span class="time">{{ timePosted }}</span>
   </div>
 
-  <div class="category">
-    <span>{{ categories }}</span>
-  </div>
+  @for (category of filteredCategories; track $index) {
+    <div class="category" [style.background-color]="'#' + category.color">
+      <span>{{ category.name }}</span>
+    </div>
+  }
 
   <p class="post-text">{{ content }}</p>
 

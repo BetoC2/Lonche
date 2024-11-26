@@ -5,6 +5,8 @@
   padding: 10px 20px;
   border-radius: 12px;
   margin-top: 20px;
+  overflow: scroll;
+  max-height: 65dvh;
 
   h2 {
     color: t.$light;
