@@ -6,6 +6,8 @@ import { environment } from 'environments/environment';
 import { Category } from 'app/types/category';
 import { FormsModule } from '@angular/forms';
 import { TitleCasePipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { TagService } from 'app/services/shared/tag.service';
 
 @Component({
   selector: 'app-categories-menu',
@@ -23,7 +25,11 @@ export class CategoriesMenuComponent implements OnInit {
   isExpanded = false;
   searchQuery = '';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private tagService: TagService,
+  ) {}
 
   ngOnInit(): void {
     this.fetchCategories();
@@ -65,5 +71,10 @@ export class CategoriesMenuComponent implements OnInit {
       category.name.toLowerCase().includes(query.toLowerCase()),
     );
     this.updateVisibleCategories();
+  }
+
+  navigateToCategory(categoryName: string) {
+    this.tagService.updateTag(categoryName);
+    this.router.navigate(['/dashboard/tag', categoryName]);
   }
 }

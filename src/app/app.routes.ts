@@ -11,6 +11,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { PreventExitGuard } from './guards/prevent-exit.guard';
 import { AdminGuard } from '../app/guards/admin.guard';
 import { AdminComponent } from '@components/pages/dashboard/admin/admin.component';
+import { PostsTagComponent } from '@components/pages/dashboard/posts-tag/posts-tag.component';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,7 @@ export const routes: Routes = [
       { path: 'popular', component: PopularComponent },
       { path: 'saved', component: SavedComponent },
       { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
+      { path: 'tag/:tag', component: PostsTagComponent },
     ],
   },
   {
