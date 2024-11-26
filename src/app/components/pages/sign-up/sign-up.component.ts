@@ -37,7 +37,7 @@ export class SignUpComponent {
   // Mapa de ciudades con sus IDs (hardcodeado)
   citiesMap = {
     'Ciudad de México': '67071eb30079259fec39295b',
-    'Guadalajara, MX': '67071eb30079259fec39295b',
+    'Guadalajara, MX': '6745e0967656cddd4ce25c9c',
   };
 
   constructor(

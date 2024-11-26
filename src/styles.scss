@@ -35,6 +35,11 @@ body {
   background-color: $dark;
   color: $light;
   margin: 0;
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $sec-gray;
+    border-radius: 10px;
+  }
 }
 
 h1,
