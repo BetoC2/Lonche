@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { LandingHeaderComponent } from '@components/layouts/landing-header/landing-header.component';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { faBrandGoogle } from '@ng-icons/font-awesome/brands';
+import { environment } from 'environments/environment';
 
 // Login Service
 import { LoginService } from '../../../services/login.service';
@@ -74,18 +75,6 @@ export class LoginComponent {
   }
 
   googleLogin() {
-    this.loginService.loginWithGoogle().subscribe({
-      next: (response: { token?: string; user?: User }) => {
-        if (response.token) {
-          this.router.navigate(['/dashboard']);
-        } else {
-          alert('Hubo un error al iniciar sesión con Google.');
-        }
-      },
-      error: (err) => {
-        console.error('Error en el login con Google: ', err);
-        alert('Hubo un error al iniciar sesión con Google. Intenta más tarde.');
-      },
-    });
+    window.location.href = `${environment.apiUrl}google`;
   }
 }
