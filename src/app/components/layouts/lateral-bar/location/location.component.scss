@@ -1,6 +1,7 @@
 @use '../../../../styles/theme' as t;
 
 .search-container {
+  overflow: hidden;
   background-color: t.$sec;
   padding: 20px 20px;
   border-radius: 15px;

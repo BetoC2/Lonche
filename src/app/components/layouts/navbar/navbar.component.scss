@@ -23,6 +23,7 @@ nav {
   gap: 10dvh;
   top: t.$nav-bar-height;
   position: sticky;
+  overflow: hidden;
 }
 
 .navigation-content {

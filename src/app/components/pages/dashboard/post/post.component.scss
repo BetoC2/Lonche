@@ -75,6 +75,8 @@ h1 {
   width: 100%;
   border-radius: 10px;
   margin-bottom: 15px;
+  max-height: 60vh;
+  object-fit: cover;
 }
 
 .post-footer {
