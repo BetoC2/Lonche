@@ -83,6 +83,7 @@ export class NewPostComponent implements AfterViewInit {
               this.uploadFile(postId);
             } else {
               this.resetForm();
+              window.location.reload();
             }
           },
           error: (error) => {
