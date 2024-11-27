@@ -4,7 +4,12 @@
     <h1>¡Hola lonche!</h1>
     <p>Estás a punto de viajar por todo el mundo.</p>
     <button>
-      <div class="button-container">
+      <div
+        class="button-container"
+        (click)="googleSignup()"
+        (keydown.enter)="googleSignup()"
+        tabindex="0"
+      >
         <ng-icon class="google-icon" name="faBrandGoogle"></ng-icon
         ><span>Continuar con Google</span>
       </div>
