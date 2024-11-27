@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { MaterialModule } from '@modules/material/material.module';
 import { faImages } from '@ng-icons/font-awesome/regular';
+import { faSolidXmark } from '@ng-icons/font-awesome/solid';
 import { HttpService } from '../../../../services/shared/http-service.service';
 import { AuthService } from '../../../../services/shared/auth.service';
 import { FileUploadService } from '../../../../services/shared/file-upload.service';
@@ -16,7 +17,7 @@ import { CityService } from 'app/services/shared/city.service';
   imports: [FormsModule, NgIconComponent, CommonModule, MaterialModule],
   templateUrl: './new-post.component.html',
   styleUrls: ['./new-post.component.scss'],
-  providers: [provideIcons({ faImages })],
+  providers: [provideIcons({ faImages, faSolidXmark })],
 })
 export class NewPostComponent implements AfterViewInit {
   postTitle = '';
@@ -161,6 +162,16 @@ export class NewPostComponent implements AfterViewInit {
       this.categoriesArray.push(category.name);
     }
   }
+
+  removeCategory(category: Category) {
+    this.savedCategories = this.savedCategories.filter(
+      (savedCategory) => savedCategory !== category,
+    );
+    this.categoriesArray = this.categoriesArray.filter(
+      (categoryName) => categoryName !== category.name,
+    );
+  }
+
 
   getColor(color: string): string {
     return color.startsWith('#') ? color : `#${color}`;

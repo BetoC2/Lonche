@@ -52,7 +52,18 @@
       </div>
       <div class="selected-categories">
         @for (category of savedCategories; track $index) {
-         <span class="savedCategory" [ngStyle]="{'background-color': getColor(category.color)}" >{{category.name}}</span>
+          <span class="savedCategory" [ngStyle]="{'background-color': getColor(category.color)}">
+            {{category.name}}
+            <ng-icon 
+              class="remove-icon" 
+              name="faSolidXmark" 
+              (click)="removeCategory(category)" 
+              (keydown.enter)="removeCategory(category)" 
+              tabindex="0" 
+              role="button" 
+              aria-label="Remove category">
+            </ng-icon>
+          </span>
         }
       </div>
     </div>
