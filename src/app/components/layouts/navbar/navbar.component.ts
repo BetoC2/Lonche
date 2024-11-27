@@ -3,7 +3,7 @@ import { CategoriesMenuComponent } from './categories-menu/categories-menu.compo
 import { ProfileComponent } from './profile/profile.component';
 import { AuthService } from 'app/services/shared/auth.service';
 import { User } from '../../../types/user';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 // Icons
 import { faPenToSquare } from '@ng-icons/font-awesome/regular';
