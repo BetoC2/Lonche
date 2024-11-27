@@ -13,6 +13,7 @@
   ));
   @include mat.table-overrides((
     background-color: $dark,
+
   ));
 
   @include mat.form-field-overrides((
@@ -20,6 +21,10 @@
     container-color: $sec-gray,
     focus-label-text-color: $light,
     focus-outline-color : $main,
+  ));
+
+  @include mat.menu-overrides((
+    container-color: $dark,
   ));
   
 }
