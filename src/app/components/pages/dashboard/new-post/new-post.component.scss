@@ -71,10 +71,23 @@
       border: none;
       padding: 5px 10px;
       border-radius: 8px;
-      cursor: not-allowed;
-      /* Botón desactivado */
       margin-left: 10px;
+      margin-right: 20px;
     }
+
+    .selected-categories {
+      max-width: 400px;
+      min-width: 300px;
+      display: flex;
+      flex-wrap: wrap;  
+    
+      & > span {
+        padding: 5px;
+        margin: 3px; 
+        border-radius: 5px;
+      }
+    }
+    
 
     .publish-button {
       background-color: t.$main;

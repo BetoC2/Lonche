@@ -1,24 +1,24 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { MaterialModule } from '@modules/material/material.module';
 import { faImages } from '@ng-icons/font-awesome/regular';
 import { HttpService } from '../../../../services/shared/http-service.service';
 import { AuthService } from '../../../../services/shared/auth.service';
 import { FileUploadService } from '../../../../services/shared/file-upload.service';
 import { Category } from 'app/types/category';
-import { environment } from 'environments/environment';
 import { CityService } from 'app/services/shared/city.service';
 
 @Component({
   selector: 'app-new-post',
   standalone: true,
-  imports: [FormsModule, NgIconComponent, CommonModule],
+  imports: [FormsModule, NgIconComponent, CommonModule, MaterialModule],
   templateUrl: './new-post.component.html',
   styleUrls: ['./new-post.component.scss'],
   providers: [provideIcons({ faImages })],
 })
-export class NewPostComponent implements AfterViewInit, OnInit {
+export class NewPostComponent implements AfterViewInit {
   postTitle = '';
   postContent = '';
   selectedFile: File | null = null;
@@ -26,7 +26,11 @@ export class NewPostComponent implements AfterViewInit, OnInit {
   id_city = '';
   id_user = '';
   isPosting = false;
+
+  // Categories
   categories: Category[] = [];
+  savedCategories: Category[] = [];
+  categoriesArray: string[] = [];
 
   @ViewChild('postForm') postForm!: NgForm;
 
@@ -36,6 +40,7 @@ export class NewPostComponent implements AfterViewInit, OnInit {
     private authService: AuthService,
     private cityService: CityService,
   ) {
+    this.getCategories();
     this.id_user = this.authService.getUserID()?.toString() || '';
     this.cityService.current_city.subscribe({
       next: (cityId) => {
@@ -44,7 +49,6 @@ export class NewPostComponent implements AfterViewInit, OnInit {
     });
   }
 
-  ngOnInit(): void {}
 
   ngAfterViewInit() {
     if (!this.postForm) {
@@ -61,7 +65,7 @@ export class NewPostComponent implements AfterViewInit, OnInit {
         id_user: this.id_user,
         title: this.postTitle.trim(),
         content: this.postContent.trim(),
-        categories: ['cultura', 'comida'],
+        categories: this.categoriesArray,
       };
 
       console.log('Payload enviado:', postPayload);
@@ -134,14 +138,28 @@ export class NewPostComponent implements AfterViewInit, OnInit {
     }
   }
 
-  fetchCategories() {
+  getCategories() {
     this.httpService.get<Category[]>('categories').subscribe({
       next: (categories) => {
         this.categories = categories;
+        console.log('Categorías:', categories);
       },
       error: (error) => {
         console.error('Error fetching categories', error);
       },
     });
+  }
+
+  saveCategory(category: Category) {
+    if (this.savedCategories.includes(category)) {
+      alert(`La categoría "${category.name}" ya existe.`);
+    } else {
+      this.savedCategories.push(category);
+      this.categoriesArray.push(category.name);
+    }
+  }
+
+  getColor(color: string): string {
+    return color.startsWith('#') ? color : `#${color}`;
   }
 }
