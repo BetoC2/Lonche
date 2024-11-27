@@ -17,6 +17,7 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-sign-up',
@@ -36,7 +37,6 @@ export class SignUpComponent {
 
   // Lista de opciones válidas
   validCities = ['Ciudad de México', 'Guadalajara, MX'];
-
 
   // Mapa de ciudades con sus IDs (hardcodeado)
   citiesMap = {
@@ -66,7 +66,7 @@ export class SignUpComponent {
       },
     );
   }
-  
+
   private passwordsMatchValidator(form: AbstractControl) {
     const password = form.get('password')?.value;
     const confirm = form.get('confirm')?.value;
@@ -122,5 +122,9 @@ export class SignUpComponent {
     } else {
       alert('Debes llenar todos los campos.');
     }
+  }
+
+  googleSignup() {
+    window.location.href = `${environment.apiUrl}google`;
   }
 }
