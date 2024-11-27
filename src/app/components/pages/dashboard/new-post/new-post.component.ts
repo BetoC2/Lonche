@@ -106,6 +106,8 @@ export class NewPostComponent implements AfterViewInit {
             console.log('Archivo subido con éxito:', response);
             alert('Post creado con éxito');
             this.resetForm();
+            window.location.reload();
+
           },
           error: (error) => {
             console.error('Error al subir el archivo:', error);
