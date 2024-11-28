@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LandingHeaderComponent } from '@components/layouts/landing-header/landing-header.component';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -27,6 +28,7 @@ import { environment } from 'environments/environment';
     ReactiveFormsModule,
     LandingHeaderComponent,
     NgIconComponent,
+    CommonModule
   ],
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
@@ -84,7 +86,6 @@ export class SignUpComponent {
 
       const selectedCityName = formValues.city;
 
-      // Validar el ID de la ciudad
       const cityId =
         this.citiesMap[selectedCityName as keyof typeof this.citiesMap] || null;
 
@@ -103,6 +104,7 @@ export class SignUpComponent {
           next: (response: { token?: string; user?: User }) => {
             if (response.token) {
               console.log(response.token, response.user);
+              alert('Usuario registrado correctamente.');
               this.router.navigate(['/dashboard']);
             } else {
               alert('Error en el registro. Intenta nuevamente.');
