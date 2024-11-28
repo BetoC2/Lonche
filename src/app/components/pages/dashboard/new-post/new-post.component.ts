@@ -44,8 +44,6 @@ export class NewPostComponent implements AfterViewInit {
   currentCity: City | undefined = undefined;
   cities: City[] = [];
 
-  //city
-
   @ViewChild('postForm') postForm!: NgForm;
 
   constructor(
