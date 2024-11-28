@@ -1,10 +1,26 @@
 <form (ngSubmit)="publishPost()" #postForm="ngForm" class="post-box-container">
-  <p>Cuéntale algo a <span class="location">Guadalajara, México</span>...</p>
+  <p>
+    Cuéntale algo a
+    <span class="location"
+      >{{ currentCity?.name | titlecase }},
+      {{ currentCity?.country | titlecase }}</span
+    >...
+  </p>
 
   <!-- Input de texto con ngModel -->
-  <textarea name="postTitle" [(ngModel)]="postTitle" placeholder="¿Qué pasa por tu mente? " required></textarea>
+  <textarea
+    name="postTitle"
+    [(ngModel)]="postTitle"
+    placeholder="¿Qué pasa por tu mente? "
+    required
+  ></textarea>
 
-  <textarea name="postContent" [(ngModel)]="postContent" placeholder="Explícanos más..." required></textarea>
+  <textarea
+    name="postContent"
+    [(ngModel)]="postContent"
+    placeholder="Explícanos más..."
+    required
+  ></textarea>
 
   <div class="post-actions">
     <div class="left-actions">
@@ -34,7 +50,13 @@
       </button>
 
       <!-- Input de archivo -->
-      <input type="file" #fileInput class="file-input" accept="image/*" (change)="onFileChange($event)" />
+      <input
+        type="file"
+        #fileInput
+        class="file-input"
+        accept="image/*"
+        (change)="onFileChange($event)"
+      />
 
       <!-- Nombre del archivo seleccionado -->
       <span class="file-name" *ngIf="selectedFileName">
@@ -42,26 +64,37 @@
       </span>
 
       <!-- Botón de categoría (placeholder, funcionalidad futura) -->
-      <button type="button" class="category-button" [matMenuTriggerFor]="belowMenu">+ Agrega categoría</button>
+      <button
+        type="button"
+        class="category-button"
+        [matMenuTriggerFor]="belowMenu"
+      >
+        + Agrega categoría
+      </button>
       <mat-menu #belowMenu="matMenu" yPosition="below">
         @for (item of categories; track $index) {
-        <button mat-menu-item class="category" (click)="saveCategory(item)">{{ item.name }}</button>
+          <button mat-menu-item class="category" (click)="saveCategory(item)">
+            {{ item.name }}
+          </button>
         }
       </mat-menu>
-      <div>
-      </div>
+      <div></div>
       <div class="selected-categories">
         @for (category of savedCategories; track $index) {
-          <span class="savedCategory" [ngStyle]="{'background-color': getColor(category.color)}">
-            {{category.name}}
-            <ng-icon 
-              class="remove-icon" 
-              name="faSolidXmark" 
-              (click)="removeCategory(category)" 
-              (keydown.enter)="removeCategory(category)" 
-              tabindex="0" 
-              role="button" 
-              aria-label="Remove category">
+          <span
+            class="savedCategory"
+            [ngStyle]="{ 'background-color': getColor(category.color) }"
+          >
+            {{ category.name }}
+            <ng-icon
+              class="remove-icon"
+              name="faSolidXmark"
+              (click)="removeCategory(category)"
+              (keydown.enter)="removeCategory(category)"
+              tabindex="0"
+              role="button"
+              aria-label="Remove category"
+            >
             </ng-icon>
           </span>
         }
@@ -69,7 +102,11 @@
     </div>
 
     <!-- Botón de publicar -->
-    <button type="submit" class="publish-button" [disabled]="!postForm.valid || isPosting">
+    <button
+      type="submit"
+      class="publish-button"
+      [disabled]="!postForm.valid || isPosting"
+    >
       {{ isPosting ? "Publicando..." : "Publicar" }}
     </button>
   </div>
