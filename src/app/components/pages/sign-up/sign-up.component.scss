@@ -82,6 +82,7 @@
 
     & > div {
       margin-bottom: 5%;
+      
     }
 
     input {
@@ -97,6 +98,10 @@
         border: none;
         outline: none;
       }
+    }
+    .error-message {
+      color: $main;
+      margin-bottom: -10px;
     }
 
     a {
