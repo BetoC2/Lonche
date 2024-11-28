@@ -106,6 +106,8 @@ export class NewPostComponent implements AfterViewInit {
             } else {
               this.resetForm();
               window.location.reload();
+              alert('Post creado con éxito');
+
             }
           },
           error: (error) => {
