@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -10,11 +10,19 @@ import { AuthService } from '../../../../services/shared/auth.service';
 import { FileUploadService } from '../../../../services/shared/file-upload.service';
 import { Category } from 'app/types/category';
 import { CityService } from 'app/services/shared/city.service';
+import { City } from 'app/types/city';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-new-post',
   standalone: true,
-  imports: [FormsModule, NgIconComponent, CommonModule, MaterialModule],
+  imports: [
+    FormsModule,
+    NgIconComponent,
+    CommonModule,
+    MaterialModule,
+    TitleCasePipe,
+  ],
   templateUrl: './new-post.component.html',
   styleUrls: ['./new-post.component.scss'],
   providers: [provideIcons({ faImages, faSolidXmark })],
@@ -33,6 +41,11 @@ export class NewPostComponent implements AfterViewInit {
   savedCategories: Category[] = [];
   categoriesArray: string[] = [];
 
+  currentCity: City | undefined = undefined;
+  cities: City[] = [];
+
+  //city
+
   @ViewChild('postForm') postForm!: NgForm;
 
   constructor(
@@ -41,15 +54,24 @@ export class NewPostComponent implements AfterViewInit {
     private authService: AuthService,
     private cityService: CityService,
   ) {
-    this.getCategories();
     this.id_user = this.authService.getUserID()?.toString() || '';
+
+    // Suscribir a cambios de ciudad actual
     this.cityService.current_city.subscribe({
       next: (cityId) => {
         this.id_city = cityId;
+        this.updateCurrentCity();
+      },
+    });
+
+    // Obtener la lista de ciudades
+    this.cityService.cities.subscribe({
+      next: (cities) => {
+        this.cities = cities;
+        this.updateCurrentCity();
       },
     });
   }
-
 
   ngAfterViewInit() {
     if (!this.postForm) {
@@ -109,7 +131,6 @@ export class NewPostComponent implements AfterViewInit {
             alert('Post creado con éxito');
             this.resetForm();
             window.location.reload();
-            
           },
           error: (error) => {
             console.error('Error al subir el archivo:', error);
@@ -172,8 +193,12 @@ export class NewPostComponent implements AfterViewInit {
     );
   }
 
-
   getColor(color: string): string {
     return color.startsWith('#') ? color : `#${color}`;
+  }
+
+  private updateCurrentCity() {
+    this.currentCity = this.cities.find((city) => city._id === this.id_city);
+    console.log('Ciudad actualizada:', this.currentCity);
   }
 }
