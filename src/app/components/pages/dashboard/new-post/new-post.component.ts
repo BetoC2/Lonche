@@ -55,6 +55,7 @@ export class NewPostComponent implements AfterViewInit {
     private cityService: CityService,
   ) {
     this.id_user = this.authService.getUserID()?.toString() || '';
+    this.getCategories();
 
     // Suscribir a cambios de ciudad actual
     this.cityService.current_city.subscribe({
