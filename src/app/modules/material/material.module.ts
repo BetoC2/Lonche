@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatButtonModule,
     MatListModule,
     MatProgressSpinnerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule
   ],
   exports: [
     CommonModule,
@@ -26,7 +28,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatButtonModule,
     MatListModule,
     MatProgressSpinnerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule
   ],
 })
 export class MaterialModule {}
